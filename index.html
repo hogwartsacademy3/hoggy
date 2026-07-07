@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Hogwarts Institute</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -121,6 +124,7 @@
 </head>
 <body class="antialiased h-screen overflow-hidden flex flex-col md:flex-row selection:bg-hogwarts-gold selection:text-black">
 
+    <!-- Login Screen -->
     <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-cover bg-center transition-opacity duration-700 p-4 overflow-y-auto" style="background-image: url('https://t3.ftcdn.net/jpg/03/26/22/48/360_F_326224870_vB8XRJbWr0qDG5bhAomLjVlKzcUXPdKA.jpg');">
         <div class="absolute inset-0 bg-gradient-to-br from-[#070913]/90 via-[#1e1133]/80 to-[#070913]/95 backdrop-blur-sm"></div>
         
@@ -158,6 +162,7 @@
         </div>
     </div>
 
+    <!-- Sidebar -->
     <aside id="sidebar" class="hidden md:flex flex-col w-full md:w-72 bg-[#0a0a12]/95 backdrop-blur-xl h-full border-r border-gray-800/60 flex-shrink-0 z-40 relative shadow-2xl">
         <div class="p-6 border-b border-gray-800/60 flex justify-between items-center bg-black/40 relative overflow-hidden flex-shrink-0">
             <div class="absolute top-0 right-0 w-32 h-32 bg-purple-900/20 rounded-full blur-3xl z-0"></div>
@@ -165,6 +170,7 @@
                 <h2 class="text-2xl text-hogwarts-gold font-magical tracking-wider mb-1">Hogwarts</h2>
                 <p id="user-greeting" class="text-sm text-gray-400 truncate bg-gray-900/80 inline-block px-3 py-1 rounded-full border border-gray-700/50">Wizards Welcome</p>
             </div>
+            <!-- FIXED: Added z-50 and p-4 to ensure the hit box works over any other elements in the title -->
             <button class="md:hidden text-gray-400 hover:text-red-400 text-3xl absolute right-2 top-2 z-50 p-4 cursor-pointer" onclick="toggleMobileMenu()">
                 <i class="fas fa-times"></i>
             </button>
@@ -172,6 +178,7 @@
 
         <div id="nav-links" class="flex-1 overflow-y-auto py-6 px-3 hide-scrollbar">
             <ul class="space-y-2">
+                <!-- Home -->
                 <li>
                     <button onclick="navigate('home')" class="nav-btn w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl hover:text-hogwarts-gold transition-all flex items-center gap-4 group">
                         <div class="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-hogwarts-gold/20 group-hover:text-hogwarts-gold transition-colors"><i class="fas fa-torii-gate"></i></div>
@@ -179,6 +186,7 @@
                     </button>
                 </li>
                 
+                <!-- About Group -->
                 <li>
                     <button onclick="toggleSubmenu('sub-about')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-4">
@@ -194,6 +202,7 @@
                     </ul>
                 </li>
 
+                <!-- Houses Group -->
                 <li>
                     <button onclick="toggleSubmenu('sub-houses')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-4">
@@ -210,6 +219,7 @@
                     </ul>
                 </li>
 
+                <!-- Academics -->
                 <li>
                     <button onclick="navigate('subjects')" class="nav-btn w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl hover:text-hogwarts-gold transition-all flex items-center gap-4 group">
                         <div class="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-amber-900/40 group-hover:text-amber-400"><i class="fas fa-book-open"></i></div>
@@ -217,6 +227,7 @@
                     </button>
                 </li>
 
+                <!-- Magic Group -->
                 <li>
                     <button onclick="toggleSubmenu('sub-magic')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-4">
@@ -232,6 +243,7 @@
                     </ul>
                 </li>
 
+                <!-- Explore Group -->
                 <li>
                     <button onclick="toggleSubmenu('sub-explore')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-4">
@@ -247,6 +259,7 @@
                     </ul>
                 </li>
 
+                <!-- Student Life Group -->
                 <li>
                     <button onclick="toggleSubmenu('sub-life')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
                         <div class="flex items-center gap-4">
@@ -261,24 +274,26 @@
                     </ul>
                 </li>
 
-                <li>
-                    <button onclick="toggleSubmenu('sub-library')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-indigo-900/40 group-hover:text-indigo-400"><i class="fas fa-book-journal-whills"></i></div>
-                            <span class="font-medium tracking-wide">The Library</span>
-                        </div>
-                        <i class="fas fa-chevron-down text-xs opacity-50 group-hover:opacity-100"></i>
-                    </button>
-                    <ul id="sub-library" class="submenu mt-1 mb-2 space-y-1">
-                        <li><button onclick="navigate('koleksi-buku')" class="nav-btn w-full text-left pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Koleksi Buku</button></li>
-                    </ul>
-                </li>
-
+                <!-- Library -->
                 <li>
                     <button onclick="navigate('creatures')" class="nav-btn w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl hover:text-hogwarts-gold transition-all flex items-center gap-4 group">
                         <div class="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-cyan-900/40 group-hover:text-cyan-400"><i class="fas fa-dragon"></i></div>
                         <span class="font-medium tracking-wide">Magical Creatures</span>
                     </button>
+                </li>
+                
+                <!-- NEW SECTION: Hogwarts Institute Lib -->
+                <li>
+                    <button onclick="toggleSubmenu('sub-institute-lib')" class="w-full text-left px-4 py-3 text-gray-300 hover:bg-white/5 rounded-xl transition-all flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-fuchsia-900/40 group-hover:text-fuchsia-400"><i class="fas fa-book-journal-whills"></i></div>
+                            <span class="font-medium tracking-wide">Hogwarts Institute Lib</span>
+                        </div>
+                        <i class="fas fa-chevron-down text-xs opacity-50 group-hover:opacity-100"></i>
+                    </button>
+                    <ul id="sub-institute-lib" class="submenu mt-1 mb-2 space-y-1">
+                        <li><button onclick="navigate('ebooks')" class="nav-btn w-full text-left pl-16 pr-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Ebook Harry Potter</button></li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -291,8 +306,10 @@
     </aside>
 
     <main id="main-content" class="hidden flex-1 h-full overflow-y-auto relative scroll-smooth">
+        <!-- Floating Magical Particles Effect -->
         <div class="fixed inset-0 pointer-events-none opacity-20" style="background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 2px, transparent 2px); background-size: 100px 100px;"></div>
         
+        <!-- Mobile Header -->
         <div class="md:hidden bg-[#070913]/90 backdrop-blur-md p-4 border-b border-gray-800/50 flex justify-between items-center sticky top-0 z-30 shadow-lg flex-shrink-0">
             <h2 class="text-xl text-hogwarts-gold font-magical">Hogwarts</h2>
             <button class="text-gray-300 p-2 rounded-lg bg-white/5 hover:bg-white/10" onclick="toggleMobileMenu()">
@@ -302,6 +319,7 @@
 
         <div class="p-6 md:p-12 max-w-7xl mx-auto w-full relative z-10">
 
+            <!-- PAGE: HOME -->
             <section id="home" class="page active">
                 <div class="rounded-3xl overflow-hidden mb-10 relative min-h-[350px] md:min-h-[450px] shadow-[0_20px_50px_rgba(0,0,0,0.6)] group border border-gray-800 flex flex-col justify-end">
                     <img src="https://t3.ftcdn.net/jpg/03/26/22/48/360_F_326224870_vB8XRJbWr0qDG5bhAomLjVlKzcUXPdKA.jpg" alt="Hogwarts Castle" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
@@ -347,6 +365,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: HISTORY -->
             <section id="history" class="page">
                 <div class="text-center mb-10 md:mb-12 relative">
                     <h1 class="text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-hogwarts-gold via-white to-hogwarts-gold font-magical mb-4 md:mb-6 leading-tight py-2">Sejarah Masa Lalu</h1>
@@ -370,6 +389,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: FOUNDERS -->
             <section id="founders" class="page">
                 <div class="text-center mb-10 md:mb-12">
                     <span class="text-hogwarts-gold text-xs md:text-sm tracking-widest uppercase mb-2 block">Arsitek Keajaiban</span>
@@ -416,6 +436,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: CAMPUS -->
             <section id="campus" class="page">
                 <div class="text-center mb-10">
                     <h1 class="text-4xl md:text-5xl text-hogwarts-gold font-magical mb-4">Peta & Teritori Kampus</h1>
@@ -449,6 +470,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: GRYFFINDOR -->
             <section id="gryffindor" class="page">
                 <div class="max-w-5xl mx-auto glass-card rounded-[2.5rem] overflow-hidden border border-red-900/50 glow-g relative">
                     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-900/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -485,6 +507,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: HUFFLEPUFF -->
             <section id="hufflepuff" class="page">
                 <div class="max-w-5xl mx-auto glass-card rounded-[2.5rem] overflow-hidden border border-yellow-700/50 glow-h relative">
                     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-yellow-600/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -521,6 +544,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: RAVENCLAW -->
             <section id="ravenclaw" class="page">
                 <div class="max-w-5xl mx-auto glass-card rounded-[2.5rem] overflow-hidden border border-blue-900/50 glow-r relative">
                     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -557,6 +581,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: SLYTHERIN -->
             <section id="slytherin" class="page">
                 <div class="max-w-5xl mx-auto glass-card rounded-[2.5rem] overflow-hidden border border-green-900/50 glow-s relative">
                     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-green-900/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -593,6 +618,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: SUBJECTS -->
             <section id="subjects" class="page">
                 <div class="text-center mb-10 md:mb-12">
                     <h1 class="text-3xl md:text-5xl text-hogwarts-gold font-magical mb-4">Kurikulum & Pembelajaran Wajib</h1>
@@ -625,6 +651,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: WANDS -->
             <section id="wands" class="page">
                 <div class="relative min-h-[300px] md:min-h-[400px] rounded-[2.5rem] overflow-hidden mb-8 md:mb-12 shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-gray-800 flex flex-col justify-end group">
                     <img src="https://www.universalstudioshollywood.com/contentdata/ush/en/us/files/images/ush-ollivanders-exterior-hero-b.jpg" alt="Ollivanders" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
@@ -671,6 +698,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: SPELLS -->
             <section id="spells" class="page">
                 <div class="text-center mb-10 md:mb-12">
                     <h1 class="text-3xl md:text-5xl text-hogwarts-gold font-magical mb-4">Ensiklopedia Mantra & Kutukan</h1>
@@ -744,6 +772,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: POTIONS -->
             <section id="potions" class="page">
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 glass-card rounded-[3rem] overflow-hidden border border-green-900/30 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
                     <div class="w-full lg:w-1/2 min-h-[250px] md:min-h-[400px] lg:h-auto rounded-[2.5rem] overflow-hidden relative group">
@@ -773,6 +802,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: CASTLE -->
             <section id="castle" class="page">
                 <h1 class="text-3xl md:text-5xl text-hogwarts-gold font-magical mb-4 text-center text-glow">Eksplorasi Kastil Utama</h1>
                 <p class="text-center text-gray-400 mb-10 md:mb-12 text-sm md:text-lg">Jangan tersesat, karena tak semua pintu menuju tempat yang sama setiap harinya.</p>
@@ -785,6 +815,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: FORBIDDEN FOREST -->
             <section id="forest" class="page">
                 <div class="relative rounded-[3rem] overflow-hidden mb-10 md:mb-12 border-2 border-green-900/50 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group flex flex-col justify-end min-h-[300px] md:min-h-[500px]">
                     <img src="https://contentful.harrypotter.com/usf1vwtuqyxm/1eNdNqgXFE0OVsWlGXlFKY/f023e0bd14fd6c6a0e91b974528562a8/the-forbidden-forest_4_1800x1248.png" alt="Forbidden Forest" class="absolute inset-0 w-full h-full object-cover brightness-50 group-hover:brightness-75 transition-all duration-700">
@@ -818,6 +849,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: HOGSMEADE -->
             <section id="hogsmeade" class="page">
                 <div class="text-center mb-10">
                     <h1 class="text-3xl md:text-5xl text-hogwarts-gold font-magical mb-4">Desa Hogsmeade</h1>
@@ -847,6 +879,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: QUIDDITCH -->
             <section id="quidditch" class="page">
                 <div class="text-center mb-10">
                     <h1 class="text-3xl md:text-5xl text-hogwarts-gold font-magical mb-4 text-glow">The Sport of Quidditch</h1>
@@ -893,6 +926,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: HOUSE CUP (INTERACTIVE POINTS SYSTEM) -->
             <section id="housecup" class="page">
                 <div class="text-center mb-10">
                     <span class="text-hogwarts-gold text-xs md:text-sm tracking-widest uppercase mb-2 block">Puncak Kehormatan</span>
@@ -905,26 +939,32 @@
                     <img src="https://pbs.twimg.com/media/EgrLnMsXkAA4DpC.jpg" alt="House Points Hourglasses" class="rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)] h-48 md:h-72 w-full max-w-3xl object-cover border border-gray-700 relative z-10 brightness-110">
                 </div>
 
+                <!-- Live Notification Element -->
                 <div id="sync-status" class="text-center text-xs text-green-400/70 mb-4 opacity-0 transition-opacity font-bold tracking-widest uppercase">
                     <i class="fas fa-satellite-dish mr-1"></i> Terhubung secara Real-Time ke Penjuru Dunia
                 </div>
 
+                <!-- House Points Display -->
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16" id="points-display">
+                    <!-- Gryffindor -->
                     <div class="glass-card border border-[#8B0000] p-6 md:p-8 rounded-[2rem] text-center relative overflow-hidden group shadow-[0_0_20px_rgba(139,0,0,0.2)]">
                         <div class="absolute inset-0 bg-gradient-to-b from-[#8B0000]/20 to-transparent opacity-50"></div>
                         <h3 class="text-lg md:text-2xl font-bold text-white relative z-10 mb-2 md:mb-4 font-magical tracking-wider">Gryffindor</h3>
                         <div class="text-4xl md:text-6xl font-magical text-[#D3A625] relative z-10 drop-shadow-[0_0_10px_rgba(211,166,37,0.5)] transition-all duration-300" id="pt-gryffindor">...</div>
                     </div>
+                    <!-- Hufflepuff -->
                     <div class="glass-card border border-[#e0aa0f] p-6 md:p-8 rounded-[2rem] text-center relative overflow-hidden group shadow-[0_0_20px_rgba(224,170,15,0.2)]">
                         <div class="absolute inset-0 bg-gradient-to-b from-[#e0aa0f]/20 to-transparent opacity-50"></div>
                         <h3 class="text-lg md:text-2xl font-bold text-white relative z-10 mb-2 md:mb-4 font-magical tracking-wider">Hufflepuff</h3>
                         <div class="text-4xl md:text-6xl font-magical text-[#f3ca20] relative z-10 drop-shadow-[0_0_10px_rgba(243,202,32,0.5)] transition-all duration-300" id="pt-hufflepuff">...</div>
                     </div>
+                    <!-- Ravenclaw -->
                     <div class="glass-card border border-[#0b2956] p-6 md:p-8 rounded-[2rem] text-center relative overflow-hidden group shadow-[0_0_20px_rgba(11,41,86,0.2)]">
                         <div class="absolute inset-0 bg-gradient-to-b from-[#0b2956]/40 to-transparent opacity-50"></div>
                         <h3 class="text-lg md:text-2xl font-bold text-white relative z-10 mb-2 md:mb-4 font-magical tracking-wider">Ravenclaw</h3>
                         <div class="text-4xl md:text-6xl font-magical text-[#89b4e5] relative z-10 drop-shadow-[0_0_10px_rgba(137,180,229,0.5)] transition-all duration-300" id="pt-ravenclaw">...</div>
                     </div>
+                    <!-- Slytherin -->
                     <div class="glass-card border border-[#005b38] p-6 md:p-8 rounded-[2rem] text-center relative overflow-hidden group shadow-[0_0_20px_rgba(0,91,56,0.2)]">
                         <div class="absolute inset-0 bg-gradient-to-b from-[#005b38]/30 to-transparent opacity-50"></div>
                         <h3 class="text-lg md:text-2xl font-bold text-white relative z-10 mb-2 md:mb-4 font-magical tracking-wider">Slytherin</h3>
@@ -932,6 +972,7 @@
                     </div>
                 </div>
 
+                <!-- Admin Realtime Controls -->
                 <div id="admin-controls" class="hidden bg-gradient-to-b from-gray-900 to-black p-6 md:p-8 rounded-[2rem] border-2 border-hogwarts-gold shadow-[0_0_30px_rgba(212,175,55,0.2)] max-w-4xl mx-auto">
                     <div class="flex items-center gap-4 mb-6 md:mb-8 pb-4 border-b border-gray-800">
                         <i class="fas fa-lock-open text-2xl md:text-3xl text-hogwarts-gold"></i>
@@ -962,6 +1003,7 @@
                 </div>
             </section>
 
+            <!-- PAGE: MAGICAL CREATURES -->
             <section id="creatures" class="page">
                 <div class="text-center mb-10 md:mb-12">
                     <h1 class="text-3xl md:text-5xl text-hogwarts-gold font-magical mb-4">Margasatwa Magis Berbahaya</h1>
@@ -969,407 +1011,292 @@
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Hippogriff -->
                     <div class="glass-card rounded-[2rem] overflow-hidden border border-gray-800 hover:-translate-y-2 transition-transform shadow-xl group">
                         <div class="min-h-[200px] md:h-60 overflow-hidden relative">
                             <img src="https://contentful.harrypotter.com/usf1vwtuqyxm/6ojZMLbgHs47ciri1BXFPI/d225833c15e85b524e17b5013a1b30f8/hippogriff_3_1800x1248.png" alt="Hippogriff" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#121024] to-transparent"></div>
                         </div>
-                        <div class="p-6 md:p-8 relative bg-[#121024]">
-                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 font-magical">Hippogriff</h3>
-                            <div class="text-[10px] md:text-xs font-bold text-red-500 uppercase tracking-widest mb-4 border border-red-500/30 inline-block px-2 py-1 rounded bg-red-900/20">XXX - Berbahaya</div>
-                            <p class="text-sm text-gray-400 leading-relaxed">Makhluk berdarah panas nan angkuh, berbadan kuda dari pinggang ke bawah namun memiliki kepala, paruh mematikan, serta cakar raksasa seekor elang bersayap lebar. Jangan pernah mendekat tanpa membungkuk menatap matanya terlebih dahulu. Jika mereka tidak membalas hormatmu, mundur perlahan.</p>
+                        <div class="p-6 md:p-8 flex flex-col flex-1 z-10 relative">
+                            <h3 class="text-xl md:text-2xl font-bold text-white font-magical mb-2">Hippogriff</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-1">Makhluk terbang hibrida bertubuh kuda dengan kepala dan sayap elang raksasa. Sangat sombong. Selalu membungkuk terlebih dahulu dan tunggu ia membalas bungkukan sebelum mendekat, atau berisiko tercabik.</p>
+                            <div class="flex items-center gap-2 text-xs font-bold tracking-widest text-orange-400 uppercase">
+                                <i class="fas fa-skull"></i> Klasifikasi: XXX
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Thestral -->
                     <div class="glass-card rounded-[2rem] overflow-hidden border border-gray-800 hover:-translate-y-2 transition-transform shadow-xl group">
                         <div class="min-h-[200px] md:h-60 overflow-hidden relative">
-                            <img src="https://contentful.harrypotter.com/usf1vwtuqyxm/5CKiuijqSAyOL3Fv1Q1ujz/095f8d54f099ebdad2f567cadd2f7dbb/niffler_3_1800x1248.png" alt="Niffler" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <img src="https://contentful.harrypotter.com/usf1vwtuqyxm/5fCg93W5uEK68yoiC6UqE2/e979069dfb008d5ed8e268a78cbcf3fa/thestral-main-image.jpg" alt="Thestral" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#121024] to-transparent"></div>
                         </div>
-                        <div class="p-6 md:p-8 relative bg-[#121024]">
-                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 font-magical">Niffler</h3>
-                            <div class="text-[10px] md:text-xs font-bold text-yellow-500 uppercase tracking-widest mb-4 border border-yellow-500/30 inline-block px-2 py-1 rounded bg-yellow-900/20">XX - Jinak namun Destruktif</div>
-                            <p class="text-sm text-gray-400 leading-relaxed">Berbulu hitam legam, menyerupai platipus perpaduan tikus tanah berbulu. Terkenal amat lembut dan penyayang, namun ketertarikan sihir buta mereka pada apa saja yang berkilau (koin, emas, garpu) membuatnya bisa merobohkan seluruh struktur ruang tamu dalam waktu dua menit untuk menggali ke dasar benda bersinar.</p>
+                        <div class="p-6 md:p-8 flex flex-col flex-1 z-10 relative">
+                            <h3 class="text-xl md:text-2xl font-bold text-white font-magical mb-2">Thestral</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-1">Kuda bersayap kerangka yang sangat langka dan karnivora. Mereka hanya bisa dilihat oleh mereka yang telah menyaksikan kematian secara langsung. Merupakan hewan tunggangan yang sangat setia jika dijinakkan.</p>
+                            <div class="flex items-center gap-2 text-xs font-bold tracking-widest text-red-500 uppercase">
+                                <i class="fas fa-skull"></i> Klasifikasi: XXXX
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Dementor -->
                     <div class="glass-card rounded-[2rem] overflow-hidden border border-gray-800 hover:-translate-y-2 transition-transform shadow-xl group">
                         <div class="min-h-[200px] md:h-60 overflow-hidden relative">
-                            <img src="https://contentful.harrypotter.com/usf1vwtuqyxm/9qNXyFbQh39aDlAWEnpty/6a437d9f3d4e3145c5c8bb15da0bb94f/bowtruckle_2_1800x1248.png" alt="Bowtruckle" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <img src="https://contentful.harrypotter.com/usf1vwtuqyxm/1D8pW8e0oWww4M2WAAScw2/2fc36cbf094ad1401f01c90589da76f3/dementor_2_1800x1248.png" alt="Dementor" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#121024] to-transparent"></div>
                         </div>
-                        <div class="p-6 md:p-8 relative bg-[#121024]">
-                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 font-magical">Bowtruckle</h3>
-                            <div class="text-[10px] md:text-xs font-bold text-green-500 uppercase tracking-widest mb-4 border border-green-500/30 inline-block px-2 py-1 rounded bg-green-900/20">XX - Damai (Jika tak diganggu)</div>
-                            <p class="text-sm text-gray-400 leading-relaxed">Makhluk mungil seukuran tangan dewasa penjaga pepohonan khusus (terutama kayu pembuat tongkat sihir). Mereka kamuflase luar biasa sebagai ranting pohon. Sangat pemalu dan cinta damai, namun akan mencungkil mata siapapun dengan jari kayu tajam mereka jika rumah pohon mereka diancam akan ditebang.</p>
+                        <div class="p-6 md:p-8 flex flex-col flex-1 z-10 relative">
+                            <h3 class="text-xl md:text-2xl font-bold text-white font-magical mb-2">Dementor</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-1">Makhluk tak berjiwa yang memakan kebahagiaan manusia, menyebabkan keputusasaan sedingin es di sekitarnya. Serangan pamungkas mereka, "Kecupan Dementor", akan menyedot jiwa korbannya melalui mulut.</p>
+                            <div class="flex items-center gap-2 text-xs font-bold tracking-widest text-purple-500 uppercase">
+                                <i class="fas fa-skull"></i> Klasifikasi: XXXXX
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="koleksi-buku" class="page">
+            <!-- PAGE: EBOOKS -->
+            <section id="ebooks" class="page">
                 <div class="text-center mb-10 md:mb-12">
-                    <span class="text-hogwarts-gold text-xs md:text-sm tracking-widest uppercase mb-2 block">Ruang Arsip Digital</span>
-                    <h1 class="text-3xl md:text-5xl text-white font-magical mb-4 text-glow">Perpustakaan Hogwarts</h1>
-                    <p class="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto italic">Koleksi Gulungan Elektronik Terlarang dan Referensi Utama. Seluruh format tersedia dalam bentuk ekstensi EPUB magis.</p>
+                    <span class="text-hogwarts-gold text-xs md:text-sm tracking-widest uppercase mb-2 block">Koleksi Terlarang</span>
+                    <h1 class="text-3xl md:text-5xl text-white font-magical mb-4 text-glow">Hogwarts Institute Lib</h1>
+                    <p class="text-gray-400 text-sm md:text-lg">Koleksi e-book perjalanan magis Harry Potter. Klik pada buku manapun untuk mengunduhnya ke dalam perangkat sihir Anda (Format EPUB).</p>
                 </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book-journal-whills text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-purple-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">A History of Magic</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Oleh Bathilda Bagshot</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
-                    
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book-skull text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">The Dark Forces: A Guide...</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Oleh Quentin Trimble</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
 
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book-open text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-blue-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                    <!-- Book 1 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter1.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-hogwarts-gold/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104842.jpg" alt="Harry Potter and the Philosopher's Stone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-hogwarts-gold to-yellow-600 text-black rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">The Standard Book of Spells</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Oleh Miranda Goshawk</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-hogwarts-gold transition-colors font-magical">Harry Potter and the Philosopher's Stone</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-hogwarts-gold/50 mr-1"></i> Buku I</span>
+                        </div>
+                    </a>
 
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book-medical text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-green-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <!-- Book 2 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter2.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-green-500/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104859.jpg" alt="Harry Potter and the Chamber of Secrets" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-green-500 to-green-700 text-white rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">Advanced Potion-Making</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Oleh Libatius Borage</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-green-400 transition-colors font-magical">Harry Potter and the Chamber of Secrets</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-green-500/50 mr-1"></i> Buku II</span>
+                        </div>
+                    </a>
 
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-yellow-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <!-- Book 3 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter3.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-purple-500/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104866.jpg" alt="Harry Potter and the Prisoner of Azkaban" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(168,85,247,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">Fantastic Beasts & Where...</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Oleh Newt Scamander</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-purple-400 transition-colors font-magical">Harry Potter and the Prisoner of Azkaban</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-purple-500/50 mr-1"></i> Buku III</span>
+                        </div>
+                    </a>
 
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book-bookmark text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <!-- Book 4 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter4.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-blue-500/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104873.jpg" alt="Harry Potter and the Goblet of Fire" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">Hogwarts: A History</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Oleh Chroniculus Punnet</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-blue-400 transition-colors font-magical">Harry Potter and the Goblet of Fire</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-blue-500/50 mr-1"></i> Buku IV</span>
+                        </div>
+                    </a>
 
-                    <div class="glass-card p-5 rounded-2xl border border-gray-800 hover:border-hogwarts-gold/50 transition-colors shadow-lg relative overflow-hidden group hover:-translate-y-2">
-                        <div class="h-48 bg-gradient-to-br from-gray-900 to-[#070913] rounded-xl mb-4 border border-gray-700 flex items-center justify-center relative overflow-hidden">
-                            <i class="fas fa-book-sparkles text-5xl text-gray-600 group-hover:text-hogwarts-gold transition-colors z-10"></i>
-                            <div class="absolute inset-0 bg-pink-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <!-- Book 5 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter5.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-orange-500/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104880.jpg" alt="Harry Potter and the Order of the Phoenix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-orange-500 to-orange-700 text-white rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(249,115,22,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg text-white font-magical mb-1 group-hover:text-hogwarts-gold transition-colors">The Tales of Beedle the Bard</h3>
-                        <p class="text-xs text-gray-500 mb-4 font-medium tracking-wide">Terjemahan Hermione G.</p>
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-hogwarts-gold hover:text-black text-gray-300 py-2.5 rounded-lg text-sm transition-all border border-gray-700 hover:border-hogwarts-gold flex justify-center items-center gap-2 font-semibold">
-                            <i class="fas fa-download"></i> Unduh EPUB
-                        </a>
-                    </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-orange-400 transition-colors font-magical">Harry Potter and the Order of the Phoenix</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-orange-500/50 mr-1"></i> Buku V</span>
+                        </div>
+                    </a>
+
+                    <!-- Book 6 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter6.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-emerald-500/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104897.jpg" alt="Harry Potter and the Half-Blood Prince" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-emerald-500 to-emerald-700 text-white rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-emerald-400 transition-colors font-magical">Harry Potter and the Half-Blood Prince</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-emerald-500/50 mr-1"></i> Buku VI</span>
+                        </div>
+                    </a>
+
+                    <!-- Book 7 -->
+                    <a href="https://github.com/hogwartsacademy3/HogwartsInstituteHome/releases/download/v1.0.0/HarryPotter7.epub" download class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-gray-800 hover:border-yellow-300/50 cursor-pointer shadow-lg block">
+                        <div class="relative w-full aspect-[2/3] overflow-hidden bg-gray-900 border-b border-gray-800">
+                            <img src="https://www.pottermorepublishing.com/wp-content/covers/web/9781781104903.jpg" alt="Harry Potter and the Deathly Hallows" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <div class="bg-gradient-to-r from-yellow-300 to-yellow-600 text-black rounded-full w-14 h-14 flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-[0_0_15px_rgba(253,224,71,0.8)]">
+                                    <i class="fas fa-download text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <h3 class="text-gray-200 font-bold text-sm md:text-base mb-2 leading-snug group-hover:text-yellow-400 transition-colors font-magical">Harry Potter and the Deathly Hallows</h3>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-widest border-t border-gray-700/50 pt-2 mt-auto block text-center"><i class="fas fa-bookmark text-yellow-500/50 mr-1"></i> Buku VII</span>
+                        </div>
+                    </a>
+
                 </div>
             </section>
-            
-            <footer class="mt-16 md:mt-20 border-t border-gray-800/50 pt-6 md:pt-8 pb-12 text-center text-gray-500 text-xs md:text-sm">
-                <i class="fas fa-bolt text-hogwarts-gold mb-2"></i>
-                <p>&copy; Hogwarts Institute of Witchcraft and Wizardry. Hidden from muggles.</p>
-            </footer>
 
         </div>
     </main>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global Variables
-        window.currentUser = null;
-        window.isAdmin = false;
-        
-        window.housePoints = {
-            gryffindor: 350,
-            hufflepuff: 290,
-            ravenclaw: 310,
-            slytherin: 345
-        };
-
-        const loginScreen = document.getElementById('login-screen');
-        const mainContent = document.getElementById('main-content');
-        const sidebar = document.getElementById('sidebar');
-        const userGreeting = document.getElementById('user-greeting');
-        const errorMsg = document.getElementById('login-error');
-
-        // FIREBASE SETUP
-        let db = null;
-        let isFirebaseReady = false;
-        const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'hogwarts-portal-default';
-
-        try {
-            if (typeof window.__firebase_config !== 'undefined' && window.__firebase_config) {
-                const firebaseConfig = JSON.parse(window.__firebase_config);
-                const app = initializeApp(firebaseConfig);
-                const auth = getAuth(app);
-                db = getFirestore(app);
-
-                const initAuth = async () => {
-                    if (typeof window.__initial_auth_token !== 'undefined' && window.__initial_auth_token) {
-                        await signInWithCustomToken(auth, window.__initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
-
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        isFirebaseReady = true;
-                        document.getElementById('sync-status').style.opacity = '1'; // Tampilkan status real-time
-                        setupRealtimeListener();
-                    }
-                });
-
-                initAuth();
-            }
-        } catch(e) {
-            console.warn("Penyimpanan cloud sedang dalam mode lokal. Perubahan poin hanya terlihat pada perangkat Anda.", e);
-        }
-
-        // Realtime Listener to sync data
-        function setupRealtimeListener() {
-            if (!db) return;
-            const pointsRef = doc(db, 'artifacts', appId, 'public', 'data', 'house_points', 'current_scores');
-            
-            onSnapshot(pointsRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    window.housePoints = docSnap.data();
-                    window.updatePointsDisplay();
-                } else {
-                    // Jika data belum ada di database, buat awal baru
-                    setDoc(pointsRef, window.housePoints).catch(console.error);
-                }
-            }, (error) => {
-                console.error("Terjadi kesalahan sinkronisasi mantra:", error);
-            });
-        }
-
-        // Exposing specific logic to global window so standard html onclick properties work
-        window.attemptLogin = function() {
-            const userVal = document.getElementById('username').value.trim();
-            const passVal = document.getElementById('password').value;
-            
-            errorMsg.classList.add('hidden');
-
-            if (userVal === '') {
-                errorMsg.querySelector('span').innerText = "Identitas penyihir diperlukan.";
-                errorMsg.classList.remove('hidden');
-                errorMsg.animate([{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}], {duration:300});
-                return;
-            }
-
-            if (userVal.toLowerCase() === 'admin' && passVal === 'caputdraconis') {
-                window.currentUser = "Headmaster (Admin)";
-                window.isAdmin = true;
-                window.completeLogin();
-            } else if (passVal === 'caputdraconis') {
-                window.currentUser = userVal;
-                window.isAdmin = false;
-                window.completeLogin();
-            } else {
-                errorMsg.querySelector('span').innerText = "Kredensial atau kata sandi sihir tidak valid.";
-                errorMsg.classList.remove('hidden');
-                errorMsg.animate([{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}], {duration:300});
-            }
-        };
-
-        window.completeLogin = function() {
-            loginScreen.style.opacity = '0';
-            
-            setTimeout(() => {
-                loginScreen.classList.add('hidden');
-                
-                sidebar.classList.remove('hidden');
-                sidebar.classList.add('hidden', 'md:flex');
-                
-                mainContent.classList.remove('hidden');
-                
-                userGreeting.innerText = window.isAdmin ? "Otoritas Tinggi Akses Penuh" : `Student: ${window.currentUser}`;
-                if(window.isAdmin) userGreeting.classList.add('text-hogwarts-gold', 'border-hogwarts-gold');
-                
-                if (window.isAdmin) {
-                    document.getElementById('admin-controls').classList.remove('hidden');
-                } else {
-                    document.getElementById('admin-controls').classList.add('hidden');
-                }
-
-                window.updatePointsDisplay();
-                window.navigate('home');
-            }, 700);
-        };
-
-        window.logout = function() {
-            window.currentUser = null;
-            window.isAdmin = false;
-            
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            
-            sidebar.classList.add('hidden', 'md:flex');
-            sidebar.classList.remove('flex', 'absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'z-50', 'bg-[#0a0a12]');
-            mainContent.classList.add('hidden');
-            
-            loginScreen.classList.remove('hidden');
-            
-            requestAnimationFrame(() => {
-                loginScreen.style.opacity = '1';
-            });
-        };
-
-        document.getElementById('password').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                window.attemptLogin();
-            }
-        });
-
-        window.navigate = function(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => {
+    <script>
+        // --- Navigation Logic ---
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active');
             });
-            
-            const target = document.getElementById(pageId);
-            if (target) {
-                target.classList.add('active');
-                mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+            // Show target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
             }
-
+            
+            // Highlight active navigation button
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-hogwarts-gold');
-            });
-
-            if (window.innerWidth < 768) {
-                const sidebarEl = document.getElementById('sidebar');
-                if (sidebarEl.classList.contains('absolute')) {
-                    window.toggleMobileMenu();
+                btn.classList.remove('text-hogwarts-gold', 'bg-white/5');
+                if(btn.getAttribute('onclick') === `navigate('${pageId}')`) {
+                    btn.classList.add('text-hogwarts-gold', 'bg-white/5');
                 }
-            }
-        };
-
-        window.toggleSubmenu = function(id) {
-            const sub = document.getElementById(id);
-            const icon = sub.previousElementSibling.querySelector('.fa-chevron-down');
+            });
             
-            if (sub.classList.contains('open')) {
-                sub.classList.remove('open');
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                document.querySelectorAll('.submenu').forEach(el => {
-                    if (el.id !== id) {
-                        el.classList.remove('open');
-                        el.previousElementSibling.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
-                    }
-                });
-                sub.classList.add('open');
+            // Close mobile menu if open
+            const sidebar = document.getElementById('sidebar');
+            if(window.innerWidth < 768 && !sidebar.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+        }
+
+        // --- Submenu Toggle Logic ---
+        function toggleSubmenu(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('open');
+            // Animate arrow
+            const icon = el.previousElementSibling.querySelector('.fa-chevron-down');
+            if(el.classList.contains('open')) {
                 icon.style.transform = 'rotate(180deg)';
                 icon.style.transition = 'transform 0.3s ease';
-            }
-        };
-
-        window.toggleMobileMenu = function() {
-            const sidebarEl = document.getElementById('sidebar');
-            const navLinks = document.getElementById('nav-links');
-            const logoutBtn = document.getElementById('logout-btn-container');
-            
-            if (sidebarEl.classList.contains('hidden') || !sidebarEl.classList.contains('absolute')) {
-                // Tampilkan Menu Mobile Overlap
-                sidebarEl.classList.remove('hidden', 'md:flex');
-                sidebarEl.classList.add('flex', 'absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'z-50', 'bg-[#0a0a12]');
-                navLinks.classList.remove('hidden');
-                logoutBtn.classList.remove('hidden');
             } else {
-                // Sembunyikan Menu Mobile
-                sidebarEl.classList.add('hidden', 'md:flex');
-                sidebarEl.classList.remove('flex', 'absolute', 'top-0', 'left-0', 'w-full', 'h-full', 'z-50', 'bg-[#0a0a12]');
+                icon.style.transform = 'rotate(0deg)';
             }
-        };
+        }
 
-        window.updatePointsDisplay = function() {
-            // Update big display
-            const displayGryf = document.getElementById('pt-gryffindor');
-            const displayHuff = document.getElementById('pt-hufflepuff');
-            const displayRave = document.getElementById('pt-ravenclaw');
-            const displaySlyt = document.getElementById('pt-slytherin');
-
-            if(displayGryf) displayGryf.innerText = window.housePoints.gryffindor;
-            if(displayHuff) displayHuff.innerText = window.housePoints.hufflepuff;
-            if(displayRave) displayRave.innerText = window.housePoints.ravenclaw;
-            if(displaySlyt) displaySlyt.innerText = window.housePoints.slytherin;
-            
-            // Update Textbox Admin (Bila Admin sedang mengedit)
-            if (window.isAdmin) {
-                // Mencegah field ter-update apabila admin sedang mengetik aktif di dalamnya
-                if (document.activeElement.id !== 'input-gryffindor') document.getElementById('input-gryffindor').value = window.housePoints.gryffindor;
-                if (document.activeElement.id !== 'input-hufflepuff') document.getElementById('input-hufflepuff').value = window.housePoints.hufflepuff;
-                if (document.activeElement.id !== 'input-ravenclaw') document.getElementById('input-ravenclaw').value = window.housePoints.ravenclaw;
-                if (document.activeElement.id !== 'input-slytherin') document.getElementById('input-slytherin').value = window.housePoints.slytherin;
+        // --- Mobile Menu Logic ---
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('fixed', 'inset-0');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('fixed', 'inset-0');
             }
-        };
+        }
 
-        window.directUpdatePoints = function(house, value) {
-            if (!window.isAdmin) return;
-            
-            let parsedValue = parseInt(value);
-            if (isNaN(parsedValue)) {
-                parsedValue = 0; 
-            }
-            
-            window.housePoints[house] = parsedValue;
-            
-            // Perubahan Langsung (Lokal)
-            const displayEl = document.getElementById(`pt-${house}`);
-            if (displayEl) {
-                displayEl.innerText = parsedValue;
-                displayEl.style.transform = 'scale(1.1)';
+        // --- Login Authentication (Mock) ---
+        function attemptLogin() {
+            const user = document.getElementById('username').value;
+            // Simple validation to just require a name
+            if(user.trim() !== "") {
+                document.getElementById('user-greeting').innerText = `Penyihir ${user}`;
+                
+                // Fade out login screen
+                document.getElementById('login-screen').classList.add('opacity-0', 'pointer-events-none');
+                
                 setTimeout(() => {
-                    displayEl.style.transform = 'scale(1)';
-                }, 150);
+                    document.getElementById('login-screen').style.display = 'none';
+                    // Show sidebar and main content
+                    document.getElementById('sidebar').classList.remove('hidden');
+                    document.getElementById('main-content').classList.remove('hidden');
+                    document.getElementById('main-content').classList.add('flex');
+                }, 700);
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
             }
+        }
 
-            // Sync Otomatis ke Database (Cloud Firebase)
-            if (isFirebaseReady && db) {
-                const pointsRef = doc(db, 'artifacts', appId, 'public', 'data', 'house_points', 'current_scores');
-                setDoc(pointsRef, window.housePoints, { merge: true }).catch(console.error);
-            }
-        };
+        // --- Logout Logic ---
+        function logout() {
+            location.reload(); // Simple reload to reset state
+        }
+
+        // --- House Cup Logic (Interactive) ---
+        function directUpdatePoints(house, value) {
+            if(value === '') value = 0;
+            document.getElementById(`pt-${house}`).innerText = value;
+            
+            // Show sync status
+            const sync = document.getElementById('sync-status');
+            sync.style.opacity = '1';
+            sync.style.transform = 'scale(1.05)';
+            
+            setTimeout(() => {
+                sync.style.opacity = '0';
+                sync.style.transform = 'scale(1)';
+            }, 2000);
+        }
+        
+        // Initial setup for the page
+        window.onload = () => {
+            // Setup initial points for House Cup
+            document.getElementById('pt-gryffindor').innerText = '450';
+            document.getElementById('pt-hufflepuff').innerText = '320';
+            document.getElementById('pt-ravenclaw').innerText = '410';
+            document.getElementById('pt-slytherin').innerText = '430';
+            
+            // Hidden Admin panel for House Cup (Press Shift + A to open)
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'A' && e.shiftKey) {
+                    document.getElementById('admin-controls').classList.toggle('hidden');
+                }
+            });
+        }
     </script>
 </body>
 </html>
- 
