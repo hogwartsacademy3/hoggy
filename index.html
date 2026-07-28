@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seeker Quidditch Hogwarts Institute</title>
+    <title>Hogwarts Institute Seeker's Palace</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --gold-primary: #d4af37;
+            --gold-light: #f3d97b;
+            --gold-dark: #aa8822;
+            --bg-dark: #050811;
+            --panel-bg: rgba(10, 14, 23, 0.85);
+        }
+
         body {
-            background-color: #0d1117;
+            background-color: var(--bg-dark);
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.05), transparent 25%);
+                radial-gradient(ellipse at top, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom, #0a1128 0%, var(--bg-dark) 100%);
             font-family: 'Lora', serif;
             color: #e2e8f0;
             overflow: hidden;
@@ -20,125 +28,309 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            position: relative;
         }
 
-        h1, h2 {
+        .title-font {
             font-family: 'Cinzel', serif;
         }
 
-        .magical-border {
-            border: 2px solid #d4af37;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.2);
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+        /* --- PARTICLE SYSTEM --- */
+        #particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Animasi melayang untuk Golden Snitch */
-        @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.05); }
-            100% { transform: translateY(0px) scale(1); }
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: drift linear infinite;
+            opacity: 0;
         }
 
-        .snitch-image {
-            animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
+        @keyframes drift {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* Animasi masuk untuk halaman sukses */
-        @keyframes reveal {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        /* --- THE PALACE GATE (MAIN PANEL) --- */
+        .palace-panel {
+            position: relative;
+            z-index: 10;
+            background: var(--panel-bg);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 
+                0 0 40px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.1) inset,
+                0 0 60px rgba(10, 14, 23, 0.9) inset;
+            backdrop-filter: blur(12px);
         }
 
-        .reveal-anim {
-            animation: reveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        /* Styling Input Tanpa Clue */
-        .secret-input {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #475569;
-            color: #d4af37;
-            text-align: center;
-            font-size: 1.5rem;
-            letter-spacing: 0.5em;
+        /* Ornate Corners */
+        .palace-panel::before, .palace-panel::after,
+        .corner-bottom::before, .corner-bottom::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold-primary);
+            opacity: 0.8;
             transition: all 0.3s ease;
+        }
+        .palace-panel::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .palace-panel::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .corner-bottom::before { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .corner-bottom::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .gold-glow {
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.5);
+        }
+        
+        .gold-text-gradient {
+            background: linear-gradient(to bottom, #fffadb, var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* --- INPUT FIELD --- */
+        .secret-input {
+            background: #000;
+            border: 2px solid #2a2a2a;
+            color: var(--gold-light);
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 0.8em;
+            text-indent: 0.4em; /* Mengimbangi letter-spacing agar rata tengah */
+            transition: all 0.4s ease;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.9);
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
         }
 
         .secret-input:focus {
             outline: none;
-            border-color: #d4af37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 5px 15px rgba(0,0,0,0.8);
+            background: #050505;
         }
 
-        /* Animasi guncangan saat salah kode */
+        /* --- SUBMIT BUTTON --- */
+        .btn-magical {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+            background-size: 200% auto;
+            color: #000;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2), inset 0 1px 1px rgba(255,255,255,0.5);
+            transition: 0.5s;
+            border: 1px solid var(--gold-light);
+        }
+        .btn-magical:hover {
+            background-position: right center;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5), inset 0 1px 1px rgba(255,255,255,0.8);
+            transform: translateY(-2px);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .snitch-image {
+            animation: float 5s ease-in-out infinite;
+            filter: drop-shadow(0 10px 25px rgba(212, 175, 55, 0.9));
+            position: relative;
+            z-index: 20;
+        }
+
+        /* Sunburst effect behind snitch */
+        .sunburst {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 200%; height: 200%;
+            transform: translate(-50%, -50%);
+            background: conic-gradient(from 0deg, transparent 0deg, rgba(212, 175, 55, 0.1) 15deg, transparent 30deg, rgba(212, 175, 55, 0.1) 45deg, transparent 60deg, rgba(212, 175, 55, 0.1) 75deg, transparent 90deg, rgba(212, 175, 55, 0.1) 105deg, transparent 120deg, rgba(212, 175, 55, 0.1) 135deg, transparent 150deg, rgba(212, 175, 55, 0.1) 165deg, transparent 180deg, rgba(212, 175, 55, 0.1) 195deg, transparent 210deg, rgba(212, 175, 55, 0.1) 225deg, transparent 240deg, rgba(212, 175, 55, 0.1) 255deg, transparent 270deg, rgba(212, 175, 55, 0.1) 285deg, transparent 300deg, rgba(212, 175, 55, 0.1) 315deg, transparent 330deg, rgba(212, 175, 55, 0.1) 345deg, transparent 360deg);
+            animation: rotateBurst 30s linear infinite;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        @keyframes rotateBurst {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes reveal {
+            0% { opacity: 0; transform: scale(0.9) translateY(40px); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        .reveal-anim {
+            animation: reveal 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+        .shake { animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+        
+        /* Flash effect for transition */
+        #flash-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #fff;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-out;
         }
 
-        .shake {
-            animation: shake 0.5s;
-        }
     </style>
 </head>
 <body>
 
-    <!-- HALAMAN 1: GERBANG PELINDUNG -->
-    <div id="gate-section" class="w-full max-w-md p-8 rounded-xl magical-border text-center transition-all duration-700 mx-4">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#d4af37] mb-2 tracking-wide">Hogwarts</h1>
-        <h2 class="text-lg md:text-xl text-gray-400 mb-8 uppercase tracking-widest">Seeker Quidditch Institute</h2>
-        
-        <p class="text-sm text-gray-400 mb-6 italic">Akses dibatasi. Masukkan kode identifikasi.</p>
+    <!-- Particle Container -->
+    <div id="particles"></div>
 
-        <div class="flex flex-col gap-4">
-            <!-- Input dikosongkan dari placeholder/clue bentuk apapun -->
-            <input 
-                type="password" 
-                id="secret-code" 
-                class="secret-input w-full p-4 rounded-lg"
-                autocomplete="off"
-            >
+    <!-- Flash Overlay for Transition -->
+    <div id="flash-overlay"></div>
+
+    <!-- HALAMAN 1: GERBANG ISTANA -->
+    <div id="gate-section" class="w-full max-w-lg p-1 transition-all duration-1000 mx-4 z-10 relative">
+        <div class="palace-panel p-8 sm:p-12 rounded-sm text-center">
+            <div class="corner-bottom"></div> <!-- Helper for bottom corners -->
             
-            <button 
-                onclick="checkCode()" 
-                class="w-full py-3 rounded-lg bg-[#d4af37] hover:bg-[#b8952b] text-gray-900 font-bold uppercase tracking-wider transition-colors"
-            >
-                Buka Gerbang
-            </button>
-        </div>
+            <!-- Emblem / Crest -->
+            <div class="flex justify-center mb-6">
+                <svg width="70" height="70" viewBox="0 0 24 24" fill="none" class="drop-shadow-lg opacity-90">
+                    <!-- Shield outline -->
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#d4af37" stroke-width="1"/>
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(212, 175, 55, 0.05)"/>
+                    <!-- Snitch symbolic wings inside -->
+                    <path d="M12 11c-1.5 0-3-1.5-5-2s-3 1-3 1 1.5 1 3 1.5 3 2.5 5 2.5" stroke="#f3d97b" stroke-width="0.5" fill="rgba(243, 217, 123, 0.2)"/>
+                    <path d="M12 11c1.5 0 3-1.5 5-2s3 1 3 1-1.5 1-3 1.5-3 2.5-5 2.5" stroke="#f3d97b" stroke-width="0.5" fill="rgba(243, 217, 123, 0.2)"/>
+                    <!-- Center sphere -->
+                    <circle cx="12" cy="12" r="2.5" fill="#d4af37" class="gold-glow"/>
+                </svg>
+            </div>
 
-        <p id="error-message" class="text-red-500 mt-4 h-6 opacity-0 transition-opacity italic text-sm">Kode pelindung menolak akses Anda.</p>
+            <!-- Titles -->
+            <div class="mb-8">
+                <h2 class="title-font font-bold text-sm md:text-base text-gray-400 mb-2 tracking-[0.3em] uppercase">Hogwarts Institute</h2>
+                <h1 class="title-font font-black text-3xl md:text-5xl gold-text-gradient gold-glow tracking-wide uppercase">Seeker's<br>Palace</h1>
+            </div>
+            
+            <!-- Ornate Divider -->
+            <div class="flex items-center justify-center gap-4 mb-10 opacity-70">
+                <div class="h-px bg-gradient-to-r from-transparent to-[#d4af37] w-1/3"></div>
+                <div class="w-2 h-2 rotate-45 border border-[#d4af37]"></div>
+                <div class="h-px bg-gradient-to-l from-transparent to-[#d4af37] w-1/3"></div>
+            </div>
+
+            <!-- Form Area -->
+            <div class="flex flex-col gap-8 relative z-20">
+                
+                <!-- Input Box -->
+                <div class="relative">
+                    <input 
+                        type="password" 
+                        id="secret-code" 
+                        class="secret-input w-full py-5 rounded-sm"
+                        autocomplete="off"
+                    >
+                    <!-- Decorative lock overlays -->
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 w-1 h-8 border-l border-gray-600 opacity-50"></div>
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 w-1 h-8 border-r border-gray-600 opacity-50"></div>
+                </div>
+                
+                <button 
+                    onclick="checkCode()" 
+                    class="btn-magical title-font w-full py-4 rounded-sm font-bold uppercase tracking-widest text-sm"
+                >
+                    Buka Gerbang Istana
+                </button>
+            </div>
+
+            <p id="error-message" class="text-red-500 mt-6 h-6 opacity-0 transition-opacity italic text-sm font-medium tracking-wide">
+                Kutukan penolak aktif. Kode salah.
+            </p>
+
+            <!-- Motto -->
+            <div class="mt-8 text-xs text-gray-500 font-serif italic tracking-widest opacity-60">
+                "Oculus Celer, Animus Fortis"
+            </div>
+        </div>
     </div>
 
 
     <!-- HALAMAN 2: SUCCESS / GOLDEN SNITCH -->
-    <div id="success-section" class="hidden w-full max-w-2xl p-8 rounded-xl text-center mx-4 flex-col items-center justify-center">
+    <div id="success-section" class="hidden w-full max-w-4xl p-4 text-center mx-4 flex-col items-center justify-center z-10">
         
-        <div class="mb-10 mt-4 relative w-64 h-64 mx-auto flex items-center justify-center">
+        <div class="relative w-full max-w-lg mx-auto mb-8 h-80 flex items-center justify-center overflow-hidden rounded-full">
+            <!-- Sunburst background -->
+            <div class="sunburst"></div>
+            
+            <!-- Cahaya utama di tengah -->
+            <div class="absolute w-40 h-40 bg-[#d4af37] rounded-full blur-[60px] opacity-40"></div>
+
             <!-- Gambar Golden Snitch melayang -->
             <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/6/69/Golden_Snitch_%28representation%29.png" 
                 alt="Golden Snitch" 
-                class="snitch-image w-full object-contain"
+                class="snitch-image w-64 md:w-80 object-contain"
             >
         </div>
 
-        <div class="magical-border p-8 rounded-lg relative overflow-hidden bg-opacity-90 bg-gray-900">
-            <h1 class="text-3xl font-bold text-[#d4af37] mb-6">150 Poin!</h1>
-            <p class="text-xl md:text-2xl leading-relaxed text-gray-200">
-                Selamat, anda berhasil menangkap snitch. Wasit akan segera mengumumkan bahwa snitch berhasil ditangkap
+        <div class="palace-panel p-10 md:p-14 rounded-sm relative max-w-2xl mx-auto w-full">
+            <div class="corner-bottom"></div>
+            <h1 class="title-font text-5xl md:text-6xl font-black gold-text-gradient mb-6 gold-glow tracking-widest uppercase">150 Poin!</h1>
+            
+            <div class="flex items-center justify-center gap-4 mb-8 opacity-70">
+                <div class="h-px bg-gradient-to-r from-transparent to-[#d4af37] w-1/4"></div>
+                <div class="w-3 h-3 rotate-45 bg-[#d4af37] shadow-[0_0_10px_#d4af37]"></div>
+                <div class="h-px bg-gradient-to-l from-transparent to-[#d4af37] w-1/4"></div>
+            </div>
+
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
+                Selamat, anda berhasil menangkap snitch. Wasit akan segera mengumumkan bahwa snitch berhasil ditangkap.
             </p>
         </div>
-
     </div>
 
     <script>
+        // Membangun sistem partikel debu sihir
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Randomize size, position, and animation duration
+            const size = Math.random() * 4 + 1; // 1px to 5px
+            const posX = Math.random() * 100; // 0% to 100%
+            const duration = Math.random() * 10 + 10; // 10s to 20s
+            const delay = Math.random() * 20; // 0s to 20s
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}vw`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `-${delay}s`; // Negatif agar sebagian sudah muncul saat load
+
+            particlesContainer.appendChild(particle);
+        }
+
         const inputField = document.getElementById('secret-code');
         
-        // Memungkinkan user menekan tombol Enter untuk mensubmit
         inputField.addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
@@ -151,35 +343,45 @@
             const gateSection = document.getElementById('gate-section');
             const successSection = document.getElementById('success-section');
             const errorMessage = document.getElementById('error-message');
+            const flashOverlay = document.getElementById('flash-overlay');
 
             if (code === "66") {
                 // Kode Benar
                 errorMessage.classList.remove('opacity-100');
                 
-                // Efek transisi menghilang
-                gateSection.style.opacity = '0';
-                gateSection.style.transform = 'scale(0.9)';
-                
+                // Efek Flash Cahaya Putih/Emas
+                flashOverlay.style.opacity = '1';
+                flashOverlay.style.background = 'radial-gradient(circle, #fff 0%, #f3d97b 50%, #d4af37 100%)';
+
                 setTimeout(() => {
+                    // Sembunyikan gerbang saat layar sedang putih (flash)
                     gateSection.classList.add('hidden');
                     
-                    // Tampilkan halaman success
+                    // Siapkan halaman sukses
                     successSection.classList.remove('hidden');
                     successSection.classList.add('flex', 'reveal-anim');
-                }, 500); // Tunggu transisi selesai
+                    
+                    // Hilangkan flash secara perlahan
+                    flashOverlay.style.opacity = '0';
+                }, 800);
 
             } else {
                 // Kode Salah
                 errorMessage.classList.add('opacity-100');
                 gateSection.classList.add('shake');
                 
-                // Hapus class shake setelah animasi selesai agar bisa diulang
+                // Beri efek warna merah sebentar pada panel
+                const panel = document.querySelector('.palace-panel');
+                panel.style.boxShadow = "0 0 40px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.2) inset";
+                
                 setTimeout(() => {
                     gateSection.classList.remove('shake');
-                }, 500);
+                    // Kembalikan shadow ke warna emas
+                    panel.style.boxShadow = "0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.1) inset, 0 0 60px rgba(10, 14, 23, 0.9) inset";
+                }, 600);
 
-                // Kosongkan input lagi
                 inputField.value = "";
+                inputField.focus();
             }
         }
     </script>
