@@ -35,7 +35,7 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* --- PARTICLE SYSTEM --- */
+        /* --- SISTEM PARTIKEL --- */
         #particles {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -58,7 +58,7 @@
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* --- THE PALACE GATE (MAIN PANEL) --- */
+        /* --- GERBANG ISTANA (PANEL UTAMA) --- */
         .palace-panel {
             position: relative;
             z-index: 10;
@@ -71,7 +71,7 @@
             backdrop-filter: blur(12px);
         }
 
-        /* Ornate Corners */
+        /* Sudut-sudut berornamen */
         .palace-panel::before, .palace-panel::after,
         .corner-bottom::before, .corner-bottom::after {
             content: '';
@@ -98,7 +98,7 @@
             background-clip: text;
         }
 
-        /* --- INPUT FIELD --- */
+        /* --- KOLOM INPUT --- */
         .secret-input {
             background: #000;
             border: 2px solid #2a2a2a;
@@ -120,7 +120,7 @@
             background: #050505;
         }
 
-        /* --- SUBMIT BUTTON --- */
+        /* --- TOMBOL SUBMIT --- */
         .btn-magical {
             background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
             background-size: 200% auto;
@@ -136,7 +136,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- ANIMATIONS --- */
+        /* --- ANIMASI --- */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-30px); }
@@ -149,7 +149,7 @@
             z-index: 20;
         }
 
-        /* Sunburst effect behind snitch */
+        /* Efek pancaran sinar di belakang snitch */
         .sunburst {
             position: absolute;
             top: 50%; left: 50%;
@@ -182,7 +182,7 @@
         }
         .shake { animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
         
-        /* Flash effect for transition */
+        /* Overlay flash untuk transisi */
         #flash-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -197,48 +197,48 @@
 </head>
 <body>
 
-    <!-- Particle Container -->
+    <!-- Wadah Partikel -->
     <div id="particles"></div>
 
-    <!-- Flash Overlay for Transition -->
+    <!-- Overlay Flash untuk Transisi -->
     <div id="flash-overlay"></div>
 
     <!-- HALAMAN 1: GERBANG ISTANA -->
     <div id="gate-section" class="w-full max-w-lg p-1 transition-all duration-1000 mx-4 z-10 relative">
         <div class="palace-panel p-8 sm:p-12 rounded-sm text-center">
-            <div class="corner-bottom"></div> <!-- Helper for bottom corners -->
+            <div class="corner-bottom"></div> <!-- Bantuan untuk sudut bawah -->
             
-            <!-- Emblem / Crest -->
+            <!-- Emblem / Lambang -->
             <div class="flex justify-center mb-6">
                 <svg width="70" height="70" viewBox="0 0 24 24" fill="none" class="drop-shadow-lg opacity-90">
-                    <!-- Shield outline -->
+                    <!-- Garis luar perisai -->
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#d4af37" stroke-width="1"/>
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(212, 175, 55, 0.05)"/>
-                    <!-- Snitch symbolic wings inside -->
+                    <!-- Sayap simbolis snitch di dalam -->
                     <path d="M12 11c-1.5 0-3-1.5-5-2s-3 1-3 1 1.5 1 3 1.5 3 2.5 5 2.5" stroke="#f3d97b" stroke-width="0.5" fill="rgba(243, 217, 123, 0.2)"/>
                     <path d="M12 11c1.5 0 3-1.5 5-2s3 1 3 1-1.5 1-3 1.5-3 2.5-5 2.5" stroke="#f3d97b" stroke-width="0.5" fill="rgba(243, 217, 123, 0.2)"/>
-                    <!-- Center sphere -->
+                    <!-- Bola tengah -->
                     <circle cx="12" cy="12" r="2.5" fill="#d4af37" class="gold-glow"/>
                 </svg>
             </div>
 
-            <!-- Titles -->
+            <!-- Judul -->
             <div class="mb-8">
                 <h2 class="title-font font-bold text-sm md:text-base text-gray-400 mb-2 tracking-[0.3em] uppercase">Hogwarts Institute</h2>
                 <h1 class="title-font font-black text-3xl md:text-5xl gold-text-gradient gold-glow tracking-wide uppercase">Seeker's<br>Palace</h1>
             </div>
             
-            <!-- Ornate Divider -->
+            <!-- Pembatas Berornamen -->
             <div class="flex items-center justify-center gap-4 mb-10 opacity-70">
                 <div class="h-px bg-gradient-to-r from-transparent to-[#d4af37] w-1/3"></div>
                 <div class="w-2 h-2 rotate-45 border border-[#d4af37]"></div>
                 <div class="h-px bg-gradient-to-l from-transparent to-[#d4af37] w-1/3"></div>
             </div>
 
-            <!-- Form Area -->
+            <!-- Area Formulir -->
             <div class="flex flex-col gap-8 relative z-20">
                 
-                <!-- Input Box -->
+                <!-- Kotak Input -->
                 <div class="relative">
                     <input 
                         type="password" 
@@ -246,7 +246,7 @@
                         class="secret-input w-full py-5 rounded-sm"
                         autocomplete="off"
                     >
-                    <!-- Decorative lock overlays -->
+                    <!-- Overlay kunci dekoratif -->
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 w-1 h-8 border-l border-gray-600 opacity-50"></div>
                     <div class="absolute right-4 top-1/2 -translate-y-1/2 w-1 h-8 border-r border-gray-600 opacity-50"></div>
                 </div>
@@ -263,7 +263,7 @@
                 Kutukan penolak aktif. Kode salah.
             </p>
 
-            <!-- Motto -->
+            <!-- Moto -->
             <div class="mt-8 text-xs text-gray-500 font-serif italic tracking-widest opacity-60">
                 "Oculus Celer, Animus Fortis"
             </div>
@@ -271,11 +271,11 @@
     </div>
 
 
-    <!-- HALAMAN 2: SUCCESS / GOLDEN SNITCH -->
+    <!-- HALAMAN 2: SUKSES / GOLDEN SNITCH -->
     <div id="success-section" class="hidden w-full max-w-4xl p-4 text-center mx-4 flex-col items-center justify-center z-10">
         
         <div class="relative w-full max-w-lg mx-auto mb-8 h-80 flex items-center justify-center overflow-hidden rounded-full">
-            <!-- Sunburst background -->
+            <!-- Latar belakang pancaran sinar -->
             <div class="sunburst"></div>
             
             <!-- Cahaya utama di tengah -->
@@ -314,17 +314,17 @@
             const particle = document.createElement('div');
             particle.classList.add('particle');
             
-            // Randomize size, position, and animation duration
-            const size = Math.random() * 4 + 1; // 1px to 5px
-            const posX = Math.random() * 100; // 0% to 100%
-            const duration = Math.random() * 10 + 10; // 10s to 20s
-            const delay = Math.random() * 20; // 0s to 20s
+            // Acak ukuran, posisi, dan durasi animasi
+            const size = Math.random() * 4 + 1; // 1px hingga 5px
+            const posX = Math.random() * 100; // 0% hingga 100%
+            const duration = Math.random() * 10 + 10; // 10detik hingga 20detik
+            const delay = Math.random() * 20; // 0detik hingga 20detik
 
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             particle.style.left = `${posX}vw`;
             particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `-${delay}s`; // Negatif agar sebagian sudah muncul saat load
+            particle.style.animationDelay = `-${delay}s`; // Negatif agar sebagian sudah muncul saat dimuat
 
             particlesContainer.appendChild(particle);
         }
@@ -345,7 +345,8 @@
             const errorMessage = document.getElementById('error-message');
             const flashOverlay = document.getElementById('flash-overlay');
 
-            if (code === "66") {
+            // --- PERUBAHAN: Password sekarang adalah "58" ---
+            if (code === "58") {
                 // Kode Benar
                 errorMessage.classList.remove('opacity-100');
                 
