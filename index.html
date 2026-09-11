@@ -3,389 +3,991 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogwarts Institute Seeker's Palace</title>
+    <title>Hogwarts Institute - Final Exam</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold-primary: #d4af37;
-            --gold-light: #f3d97b;
-            --gold-dark: #aa8822;
-            --bg-dark: #050811;
-            --panel-bg: rgba(10, 14, 23, 0.85);
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(ellipse at top, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at bottom, #0a1128 0%, var(--bg-dark) 100%);
-            font-family: 'Lora', serif;
-            color: #e2e8f0;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            position: relative;
-        }
-
-        .title-font {
-            font-family: 'Cinzel', serif;
-        }
-
-        /* --- SISTEM PARTIKEL --- */
-        #particles {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: drift linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes drift {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.4; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        /* --- GERBANG ISTANA (PANEL UTAMA) --- */
-        .palace-panel {
-            position: relative;
-            z-index: 10;
-            background: var(--panel-bg);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 
-                0 0 40px rgba(0, 0, 0, 0.8),
-                0 0 20px rgba(212, 175, 55, 0.1) inset,
-                0 0 60px rgba(10, 14, 23, 0.9) inset;
-            backdrop-filter: blur(12px);
-        }
-
-        /* Sudut-sudut berornamen */
-        .palace-panel::before, .palace-panel::after,
-        .corner-bottom::before, .corner-bottom::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--gold-primary);
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-        .palace-panel::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .palace-panel::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
-        .corner-bottom::before { bottom: -2px; left: -2px; border-right: none; border-top: none; }
-        .corner-bottom::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
-
-        .gold-glow {
-            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.5);
-        }
-        
-        .gold-text-gradient {
-            background: linear-gradient(to bottom, #fffadb, var(--gold-primary), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* --- KOLOM INPUT --- */
-        .secret-input {
-            background: #000;
-            border: 2px solid #2a2a2a;
-            color: var(--gold-light);
-            text-align: center;
-            font-size: 2rem;
-            letter-spacing: 0.8em;
-            text-indent: 0.4em; /* Mengimbangi letter-spacing agar rata tengah */
-            transition: all 0.4s ease;
-            box-shadow: inset 0 10px 20px rgba(0,0,0,0.9);
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-        }
-
-        .secret-input:focus {
-            outline: none;
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 5px 15px rgba(0,0,0,0.8);
-            background: #050505;
-        }
-
-        /* --- TOMBOL SUBMIT --- */
-        .btn-magical {
-            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-            background-size: 200% auto;
-            color: #000;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2), inset 0 1px 1px rgba(255,255,255,0.5);
-            transition: 0.5s;
-            border: 1px solid var(--gold-light);
-        }
-        .btn-magical:hover {
-            background-position: right center;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5), inset 0 1px 1px rgba(255,255,255,0.8);
-            transform: translateY(-2px);
-        }
-
-        /* --- ANIMASI --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-30px); }
-        }
-
-        .snitch-image {
-            animation: float 5s ease-in-out infinite;
-            filter: drop-shadow(0 10px 25px rgba(212, 175, 55, 0.9));
-            position: relative;
-            z-index: 20;
-        }
-
-        /* Efek pancaran sinar di belakang snitch */
-        .sunburst {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 200%; height: 200%;
-            transform: translate(-50%, -50%);
-            background: conic-gradient(from 0deg, transparent 0deg, rgba(212, 175, 55, 0.1) 15deg, transparent 30deg, rgba(212, 175, 55, 0.1) 45deg, transparent 60deg, rgba(212, 175, 55, 0.1) 75deg, transparent 90deg, rgba(212, 175, 55, 0.1) 105deg, transparent 120deg, rgba(212, 175, 55, 0.1) 135deg, transparent 150deg, rgba(212, 175, 55, 0.1) 165deg, transparent 180deg, rgba(212, 175, 55, 0.1) 195deg, transparent 210deg, rgba(212, 175, 55, 0.1) 225deg, transparent 240deg, rgba(212, 175, 55, 0.1) 255deg, transparent 270deg, rgba(212, 175, 55, 0.1) 285deg, transparent 300deg, rgba(212, 175, 55, 0.1) 315deg, transparent 330deg, rgba(212, 175, 55, 0.1) 345deg, transparent 360deg);
-            animation: rotateBurst 30s linear infinite;
-            z-index: 1;
-            opacity: 0.6;
-        }
-
-        @keyframes rotateBurst {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes reveal {
-            0% { opacity: 0; transform: scale(0.9) translateY(40px); filter: blur(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-        }
-
-        .reveal-anim {
-            animation: reveal 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-            20%, 40%, 60%, 80% { transform: translateX(8px); }
-        }
-        .shake { animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
-        
-        /* Overlay flash untuk transisi */
-        #flash-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #fff;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease-out;
-        }
-
-    </style>
-</head>
-<body>
-
-    <!-- Wadah Partikel -->
-    <div id="particles"></div>
-
-    <!-- Overlay Flash untuk Transisi -->
-    <div id="flash-overlay"></div>
-
-    <!-- HALAMAN 1: GERBANG ISTANA -->
-    <div id="gate-section" class="w-full max-w-lg p-1 transition-all duration-1000 mx-4 z-10 relative">
-        <div class="palace-panel p-8 sm:p-12 rounded-sm text-center">
-            <div class="corner-bottom"></div> <!-- Bantuan untuk sudut bawah -->
-            
-            <!-- Emblem / Lambang -->
-            <div class="flex justify-center mb-6">
-                <svg width="70" height="70" viewBox="0 0 24 24" fill="none" class="drop-shadow-lg opacity-90">
-                    <!-- Garis luar perisai -->
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#d4af37" stroke-width="1"/>
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(212, 175, 55, 0.05)"/>
-                    <!-- Sayap simbolis snitch di dalam -->
-                    <path d="M12 11c-1.5 0-3-1.5-5-2s-3 1-3 1 1.5 1 3 1.5 3 2.5 5 2.5" stroke="#f3d97b" stroke-width="0.5" fill="rgba(243, 217, 123, 0.2)"/>
-                    <path d="M12 11c1.5 0 3-1.5 5-2s3 1 3 1-1.5 1-3 1.5-3 2.5-5 2.5" stroke="#f3d97b" stroke-width="0.5" fill="rgba(243, 217, 123, 0.2)"/>
-                    <!-- Bola tengah -->
-                    <circle cx="12" cy="12" r="2.5" fill="#d4af37" class="gold-glow"/>
-                </svg>
-            </div>
-
-            <!-- Judul -->
-            <div class="mb-8">
-                <h2 class="title-font font-bold text-sm md:text-base text-gray-400 mb-2 tracking-[0.3em] uppercase">Hogwarts Institute</h2>
-                <h1 class="title-font font-black text-3xl md:text-5xl gold-text-gradient gold-glow tracking-wide uppercase">Seeker's<br>Palace</h1>
-            </div>
-            
-            <!-- Pembatas Berornamen -->
-            <div class="flex items-center justify-center gap-4 mb-10 opacity-70">
-                <div class="h-px bg-gradient-to-r from-transparent to-[#d4af37] w-1/3"></div>
-                <div class="w-2 h-2 rotate-45 border border-[#d4af37]"></div>
-                <div class="h-px bg-gradient-to-l from-transparent to-[#d4af37] w-1/3"></div>
-            </div>
-
-            <!-- Area Formulir -->
-            <div class="flex flex-col gap-8 relative z-20">
-                
-                <!-- Kotak Input -->
-                <div class="relative">
-                    <input 
-                        type="password" 
-                        id="secret-code" 
-                        class="secret-input w-full py-5 rounded-sm"
-                        autocomplete="off"
-                    >
-                    <!-- Overlay kunci dekoratif -->
-                    <div class="absolute left-4 top-1/2 -translate-y-1/2 w-1 h-8 border-l border-gray-600 opacity-50"></div>
-                    <div class="absolute right-4 top-1/2 -translate-y-1/2 w-1 h-8 border-r border-gray-600 opacity-50"></div>
-                </div>
-                
-                <button 
-                    onclick="checkCode()" 
-                    class="btn-magical title-font w-full py-4 rounded-sm font-bold uppercase tracking-widest text-sm"
-                >
-                    Buka Gerbang Istana
-                </button>
-            </div>
-
-            <p id="error-message" class="text-red-500 mt-6 h-6 opacity-0 transition-opacity italic text-sm font-medium tracking-wide">
-                Kutukan penolak aktif. Kode salah.
-            </p>
-
-            <!-- Moto -->
-            <div class="mt-8 text-xs text-gray-500 font-serif italic tracking-widest opacity-60">
-                "Oculus Celer, Animus Fortis"
-            </div>
-        </div>
-    </div>
-
-
-    <!-- HALAMAN 2: SUKSES / GOLDEN SNITCH -->
-    <div id="success-section" class="hidden w-full max-w-4xl p-4 text-center mx-4 flex-col items-center justify-center z-10">
-        
-        <div class="relative w-full max-w-lg mx-auto mb-8 h-80 flex items-center justify-center overflow-hidden rounded-full">
-            <!-- Latar belakang pancaran sinar -->
-            <div class="sunburst"></div>
-            
-            <!-- Cahaya utama di tengah -->
-            <div class="absolute w-40 h-40 bg-[#d4af37] rounded-full blur-[60px] opacity-40"></div>
-
-            <!-- Gambar Golden Snitch melayang -->
-            <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/6/69/Golden_Snitch_%28representation%29.png" 
-                alt="Golden Snitch" 
-                class="snitch-image w-64 md:w-80 object-contain"
-            >
-        </div>
-
-        <div class="palace-panel p-10 md:p-14 rounded-sm relative max-w-2xl mx-auto w-full">
-            <div class="corner-bottom"></div>
-            <h1 class="title-font text-5xl md:text-6xl font-black gold-text-gradient mb-6 gold-glow tracking-widest uppercase">150 Poin!</h1>
-            
-            <div class="flex items-center justify-center gap-4 mb-8 opacity-70">
-                <div class="h-px bg-gradient-to-r from-transparent to-[#d4af37] w-1/4"></div>
-                <div class="w-3 h-3 rotate-45 bg-[#d4af37] shadow-[0_0_10px_#d4af37]"></div>
-                <div class="h-px bg-gradient-to-l from-transparent to-[#d4af37] w-1/4"></div>
-            </div>
-
-            <p class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
-                Selamat, anda berhasil menangkap snitch. Wasit akan segera mengumumkan bahwa snitch berhasil ditangkap.
-            </p>
-        </div>
-    </div>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <script>
-        // Membangun sistem partikel debu sihir
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 40;
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            
-            // Acak ukuran, posisi, dan durasi animasi
-            const size = Math.random() * 4 + 1; // 1px hingga 5px
-            const posX = Math.random() * 100; // 0% hingga 100%
-            const duration = Math.random() * 10 + 10; // 10detik hingga 20detik
-            const delay = Math.random() * 20; // 0detik hingga 20detik
-
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${posX}vw`;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `-${delay}s`; // Negatif agar sebagian sudah muncul saat dimuat
-
-            particlesContainer.appendChild(particle);
-        }
-
-        const inputField = document.getElementById('secret-code');
-        
-        inputField.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                checkCode();
-            }
-        });
-
-        function checkCode() {
-            const code = inputField.value;
-            const gateSection = document.getElementById('gate-section');
-            const successSection = document.getElementById('success-section');
-            const errorMessage = document.getElementById('error-message');
-            const flashOverlay = document.getElementById('flash-overlay');
-
-            // --- PERUBAHAN: Password sekarang adalah "67" ---
-            if (code === "67") {
-                // Kode Benar
-                errorMessage.classList.remove('opacity-100');
-                
-                // Efek Flash Cahaya Putih/Emas
-                flashOverlay.style.opacity = '1';
-                flashOverlay.style.background = 'radial-gradient(circle, #fff 0%, #f3d97b 50%, #d4af37 100%)';
-
-                setTimeout(() => {
-                    // Sembunyikan gerbang saat layar sedang putih (flash)
-                    gateSection.classList.add('hidden');
-                    
-                    // Siapkan halaman sukses
-                    successSection.classList.remove('hidden');
-                    successSection.classList.add('flex', 'reveal-anim');
-                    
-                    // Hilangkan flash secara perlahan
-                    flashOverlay.style.opacity = '0';
-                }, 800);
-
-            } else {
-                // Kode Salah
-                errorMessage.classList.add('opacity-100');
-                gateSection.classList.add('shake');
-                
-                // Beri efek warna merah sebentar pada panel
-                const panel = document.querySelector('.palace-panel');
-                panel.style.boxShadow = "0 0 40px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.2) inset";
-                
-                setTimeout(() => {
-                    gateSection.classList.remove('shake');
-                    // Kembalikan shadow ke warna emas
-                    panel.style.boxShadow = "0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.1) inset, 0 0 60px rgba(10, 14, 23, 0.9) inset";
-                }, 600);
-
-                inputField.value = "";
-                inputField.focus();
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        body: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        magic: {
+                            900: '#0f172a', // Deep night sky
+                            800: '#1e293b', // Darker slate
+                            700: '#334155', // Slate
+                            gold: '#d4af37', // Magical gold
+                            gold_dim: '#b8962e',
+                        }
+                    }
+                }
             }
         }
     </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%);
+            background-attachment: fixed;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37; 
+        }
+
+        .radio-custom:checked + div {
+            border-color: #d4af37;
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        .radio-custom:checked + div .indicator {
+            background-color: #d4af37;
+            border-color: #d4af37;
+        }
+        
+        /* State colors for graded exam */
+        .correct-answer {
+            border-color: #22c55e !important;
+            background-color: rgba(34, 197, 94, 0.1) !important;
+        }
+        .correct-answer .indicator {
+            background-color: #22c55e !important;
+            border-color: #22c55e !important;
+        }
+        .wrong-answer {
+            border-color: #ef4444 !important;
+            background-color: rgba(239, 68, 68, 0.1) !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-body text-lg antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <header class="sticky top-0 z-40 bg-magic-900/90 backdrop-blur-md border-b border-magic-gold/30 shadow-lg shadow-black/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <!-- Hamburger Button -->
+                    <button id="menu-btn" class="p-2 rounded-md text-magic-gold hover:bg-magic-800 focus:outline-none transition-colors" aria-label="Menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    <h1 class="font-heading text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-magic-gold to-yellow-200 tracking-wider">
+                        Hogwarts Institute
+                    </h1>
+                </div>
+                <div class="hidden sm:block text-sm text-gray-400 font-heading tracking-widest">
+                    FINAL EXAM PORTAL
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity duration-300 opacity-0"></div>
+    
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 sm:w-80 bg-magic-800 border-r border-magic-gold/20 shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        <div class="p-5 border-b border-magic-gold/20 flex justify-between items-center bg-magic-900">
+            <h2 class="font-heading text-xl text-magic-gold font-bold">Menu Ujian</h2>
+            <button id="close-btn" class="text-gray-400 hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="overflow-y-auto flex-grow p-4" id="nav-menu">
+            <!-- Menu items will be injected here by JS -->
+        </div>
+        <div class="p-4 border-t border-magic-gold/20 text-center text-sm text-gray-500 font-heading">
+            Tahun Ajaran 2026
+        </div>
+    </aside>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 relative">
+        <div id="welcome-screen" class="text-center space-y-6 py-20 fade-in">
+            <h2 class="font-heading text-4xl sm:text-5xl font-bold text-magic-gold mb-4">Selamat Datang, Siswa.</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">Silakan pilih grade dan mata pelajaran pada menu di sebelah kiri (ikon garis tiga) untuk memulai ujian akhir Anda.</p>
+            <div class="inline-block mt-8 p-4 border border-magic-gold/30 rounded-full bg-magic-800/50 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                <svg class="w-10 h-10 text-magic-gold animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div id="exam-container" class="hidden">
+            <!-- Exam Header -->
+            <div class="text-center mb-10 pb-6 border-b border-magic-gold/30 fade-in">
+                <div class="inline-block px-3 py-1 rounded-full border border-magic-gold/50 text-magic-gold text-sm font-heading font-bold tracking-widest mb-4 bg-magic-800/80" id="exam-grade-badge"></div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white mb-2" id="exam-subject-title">Subject Name</h2>
+                <p class="text-gray-400 italic font-heading text-lg" id="exam-professor-name">Prof. Name</p>
+            </div>
+
+            <!-- Exam Form -->
+            <form id="exam-form" class="space-y-8">
+                <div id="questions-container">
+                    <!-- Questions will be injected here -->
+                </div>
+                
+                <div class="sticky bottom-4 z-30 pt-6 pb-2 text-center bg-magic-900/90 backdrop-blur-md rounded-xl border border-magic-gold/20 shadow-[0_-10px_20px_rgba(15,23,42,0.8)] mt-10">
+                    <button type="submit" class="font-heading font-bold text-xl px-10 py-3 bg-gradient-to-r from-yellow-700 to-yellow-600 hover:from-magic-gold hover:to-yellow-500 text-magic-900 rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all transform hover:scale-105 active:scale-95">
+                        Kumpulkan & Periksa
+                    </button>
+                    <p id="score-display" class="hidden mt-4 text-2xl font-bold font-heading text-white"></p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-magic-900 border-t border-magic-gold/20 py-6 text-center text-sm text-gray-500 mt-auto">
+        <p class="font-heading">&copy; 2026 Hogwarts Institute. Non magicus non intrant.</p>
+    </footer>
+
+    <script>
+        // Database of all exams
+        const examDatabase = [
+            {
+                id: 'g3-transfigurasi',
+                grade: 3,
+                subject: 'Transfigurasi',
+                professor: 'Prof. Lila Seraphine Malfoy',
+                questions: [
+                    {
+                        text: "Saat kelas Transfigurasi seorang siswa tidak sengaja membuat ramuan berlebih memenuhi kualinya. Profesor kemudian meminta siswa tersebut menghilangkan isi ramuan menggunakan mantra yang tepat. Apa mantra yang tepat untuk digunakan?",
+                        options: ["Finite Incantatem", "Reparifarge", "Vipera Evanesca", "Evanesco"],
+                        answer: 3
+                    },
+                    {
+                        text: "Mantra Vera Verto mengubah hewan menjadi?",
+                        options: ["kucing", "piala air", "meja", "kuali"],
+                        answer: 1
+                    },
+                    {
+                        text: "Lapifors adalah mantra transformasi yang mengubah target menjadi...",
+                        options: ["kelinci", "kucing", "katak", "ular"],
+                        answer: 0
+                    },
+                    {
+                        text: "Perbedaan Animagus dan Metamorphmagus sebagai berikut:",
+                        options: [
+                            "Animagus: dapat kembali ke wujud manusia, Metamorphmagus: tidak dapat kembali ke wujud manusia",
+                            "Animagus: Kemampuan dapat dipelajari, Metamorphmagus: kemampuan bawaan",
+                            "Animagus: perlu proses sulit, Metamorphmagus: prosesnya lebih mudah",
+                            "Animagus: tidak perlu mantra, Metamorphmagus: perlu mantra kompleks"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Apa warna cahaya mantra Reparifarge?",
+                        options: ["Biru", "Ungu", "Putih", "Hijau"],
+                        answer: 2
+                    },
+                    {
+                        text: "Proses menjadi Animagus cukup beresiko lalu apa saja bahan yang perlu dimasukkan ke dalam botol kristal?",
+                        options: [
+                            "Daun Devil's Snare, sehelai rambut sendiri, satu sendok teh hijau, Kepompong Death's-head Hawkmoth",
+                            "Kepompong Death's-head Hawkmoth, daun mandrake, sehelai bulu kucing, satu sendok teh embun",
+                            "Satu sendok teh embun, daun Mandrake, sehelai rambut sendiri, Kepompong Death's-head Hawkmoth",
+                            "Sehelai rambut, satu sendok garam, daun sawit, kepompong Death's-head Hawkmoth"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Apa mantra proses untuk menjadi Animagus yang perlu diucapkan setiap matahari terbenam?",
+                        options: [
+                            "Amato Anime Animato Anigus",
+                            "Amato Mecamato Animo Animagus",
+                            "Animo Amoto Amagus Agus",
+                            "Amato Animo Animato Animagus"
+                        ],
+                        answer: 3
+                    },
+                    {
+                        text: "Seseorang melakukan mantra dengan mengubah seekor tikus menjadi sebuah piala air, namun mantra tidak berhasil. Menyebabkan piala masih ada ekornya. Lalu ia ingin mengubah objek ke bentuk semula. Menurutmu apa saja mantra yang digunakan?",
+                        options: [
+                            "Vera Verto-Reparifarge",
+                            "Evanesco-Reparifarge",
+                            "Reparifarge-Lapifors",
+                            "Vipera Evanesca-Vera Verto"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        text: "Lapifors berasal dari bahasa Latin yaitu Lapi-Lapis, yang berarti?",
+                        options: ["kelinci", "kunci", "buku", "batu"],
+                        answer: 3
+                    },
+                    {
+                        text: "Siapa penulis dari A Beginner's Guide to Transfiguration?",
+                        options: ["Emeric Switch", "Minerva McGonagall", "Severus Snape", "Matilda Weasley"],
+                        answer: 0
+                    }
+                ]
+            },
+            {
+                id: 'g2-potions',
+                grade: 2,
+                subject: 'Potions',
+                professor: 'Layebi Salvathore',
+                questions: [
+                    {
+                        text: "Apa fungsi utama dari Polyjuice Potion?",
+                        options: [
+                            "Membuat tubuh menjadi lebih kuat",
+                            "Mengubah bentuk fisik peminumnya menjadi orang lain",
+                            "Membuat peminumnya tidak terlihat",
+                            "Melindungi tubuh dari api"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Mengapa Polyjuice Potion dianggap sebagai ramuan yang sangat sulit dibuat?",
+                        options: [
+                            "Membutuhkan bahan yang sangat sedikit",
+                            "Hanya bisa dibuat oleh profesor",
+                            "Memiliki proses yang rumit, banyak tahapan, dan membutuhkan waktu lama",
+                            "Harus dibuat tanpa menggunakan kuali"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Bahan Polyjuice Potion yang harus dipetik saat bulan purnama adalah...",
+                        options: ["Knotgrass", "Lacewing Flies", "Fluxweed", "Boomslang Skin"],
+                        answer: 2
+                    },
+                    {
+                        text: "Sebelum digunakan dalam pembuatan Polyjuice Potion, Lacewing Flies harus...",
+                        options: [
+                            "Dibakar selama satu jam",
+                            "Direbus selama dua puluh satu hari",
+                            "Dikeringkan selama tujuh hari",
+                            "Dicampur dengan darah salamander"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Berapa lama proses keseluruhan pembuatan Polyjuice Potion menurut materi?",
+                        options: ["Sekitar satu hari", "Sekitar satu minggu", "Sekitar satu bulan", "Sekitar satu tahun"],
+                        answer: 2
+                    },
+                    {
+                        text: "Efek satu dosis Polyjuice Potion dapat berlangsung selama...",
+                        options: ["1–5 menit", "10 menit–12 jam", "12–24 jam", "2–3 hari"],
+                        answer: 1
+                    },
+                    {
+                        text: "Polyjuice Potion dapat membuat seseorang berubah menjadi orang yang...",
+                        options: [
+                            "Hanya memiliki jenis kelamin yang sama",
+                            "Hanya lebih tua darinya",
+                            "Berjenis kelamin berbeda",
+                            "Hanya memiliki bentuk tubuh yang sama"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Jika seseorang meninggal ketika masih berada dalam bentuk akibat Polyjuice Potion, menurut materi ia akan...",
+                        options: [
+                            "Langsung kembali ke bentuk asli",
+                            "Mempertahankan bentuk orang yang ditirunya",
+                            "Berubah menjadi bentuk lain",
+                            "Menghilang dari dunia sihir"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Apa efek utama dari Swelling Solution?",
+                        options: [
+                            "Membuat tubuh menjadi kebal terhadap api",
+                            "Membuat bagian tubuh yang terkena membengkak berkali-kali lipat",
+                            "Mengubah wajah menjadi orang lain",
+                            "Membuat tubuh menjadi tidak terlihat"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Penawar (antidote) untuk Swelling Solution adalah...",
+                        options: ["Healing Potion", "Fire Protection Potion", "Deflating Draught", "Polyjuice Potion"],
+                        answer: 2
+                    },
+                    {
+                        text: "Fire Protection Potion juga dikenal sebagai...",
+                        options: ["Ice Potion", "Swelling Potion", "Transformation Potion", "Deflating Potion"],
+                        answer: 0
+                    },
+                    {
+                        text: "Fungsi utama Fire Protection Potion adalah...",
+                        options: [
+                            "Membuat peminumnya dapat terbang",
+                            "Memungkinkan seseorang melewati api magis tanpa terbakar",
+                            "Mengubah seseorang menjadi hewan",
+                            "Membuat seseorang menjadi lebih besar"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Sensasi yang dirasakan setelah meminum Fire Protection Potion adalah...",
+                        options: [
+                            "Panas yang luar biasa",
+                            "Gatal pada seluruh tubuh",
+                            "Dingin yang sangat ekstrem",
+                            "Tubuh menjadi ringan"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Berdasarkan materi, Fire Protection Potion termasuk ramuan tingkat...",
+                        options: ["Sangat berbahaya", "Pemula", "Tingkat lanjut", "Tingkat ahli"],
+                        answer: 2
+                    },
+                    {
+                        text: "Fire Protection Potion biasanya diajarkan di Hogwarts pada...",
+                        options: ["Tahun pertama", "Tahun kedua", "Tahun ketiga", "Tahun keempat"],
+                        answer: 1
+                    }
+                ]
+            },
+            {
+                id: 'g2-herbology',
+                grade: 2,
+                subject: 'Herbology',
+                professor: 'Regula Hades Nyx Umbra',
+                questions: [
+                    {
+                        text: "Dalam perawatan Mandrake, mengapa fase pemindahan dari pot kecil ke pot yang lebih besar dianggap sebagai tahap yang sangat sensitif?",
+                        options: [
+                            "Mandrake mulai menghasilkan racun yang mudah menguap",
+                            "Mandrake memasuki fase pertumbuhan ketika akarnya menjadi sangat reaktif",
+                            "Mandrake kehilangan kemampuan menyerap air melalui daun",
+                            "Mandrake berhenti menghasilkan suara ketika akarnya terganggu"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Efek paling berbahaya dari tangisan Mandrake yang sudah matang adalah...",
+                        options: [
+                            "Menyebabkan korban tertidur selama beberapa hari",
+                            "Menghilangkan ingatan korban secara permanen",
+                            "Membunuh atau melumpuhkan korban akibat sifat magis tangisannya",
+                            "Mengubah korban menjadi batu"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Seorang penyihir memakan Gillyweed sebelum masuk ke air. Perubahan fisiologis magis apa yang paling berkaitan dengan fungsi tanaman tersebut?",
+                        options: [
+                            "Meningkatkan kemampuan tubuh menghasilkan oksigen sendiri",
+                            "Memungkinkan pengguna bernapas di bawah air sekaligus beradaptasi untuk berenang",
+                            "Mengubah paru-paru menjadi insang permanen",
+                            "Membuat tubuh kebal terhadap tekanan air"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Jika seorang penyihir memakan Gillyweed tetapi tetap berada di daratan selama efeknya berlangsung, masalah paling masuk akal adalah...",
+                        options: [
+                            "Tidak terjadi apa pun karena Gillyweed hanya aktif di air",
+                            "Pengguna mengalami perubahan sementara yang tidak banyak berguna di daratan",
+                            "Gillyweed berubah menjadi racun ketika terkena udara",
+                            "Pengguna kehilangan kemampuan bernapas"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Ciri paling khas Bubotuber yang membedakannya dari banyak tanaman magis lainnya adalah...",
+                        options: [
+                            "Menghasilkan buah yang dapat berbicara",
+                            "Mengeluarkan cairan seperti nanah yang memiliki kegunaan tertentu setelah diolah dengan tepat",
+                            "Memiliki akar yang dapat bergerak mengejar manusia",
+                            "Menghasilkan gas yang menyebabkan korban tertawa"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Mengapa cairan Bubotuber tidak boleh diperlakukan sembarangan meskipun dapat memiliki manfaat dalam pembuatan preparat tertentu?",
+                        options: [
+                            "Karena cairannya sangat mudah terbakar",
+                            "Karena kontak langsung dapat menyebabkan iritasi atau reaksi yang tidak diinginkan",
+                            "Karena cairannya menghilangkan sihir seseorang",
+                            "Karena cairannya selalu mematikan"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Seorang herbolog menemukan tanaman dengan sulur bergerak agresif, duri tajam, dan sifat beracun. Tanaman tersebut kemungkinan besar adalah...",
+                        options: ["Devil’s Snare", "Bubotuber", "Venomous Tentacula", "Gillyweed"],
+                        answer: 2
+                    },
+                    {
+                        text: "Apa kombinasi karakteristik yang paling tepat menggambarkan bahaya Venomous Tentacula?",
+                        options: [
+                            "Kemampuan menghasilkan lendir dan mengeluarkan aroma memabukkan",
+                            "Sulur yang agresif, duri, serta kandungan racun",
+                            "Kemampuan bersembunyi dalam kegelapan dan menyerap oksigen",
+                            "Akar yang menghasilkan suara mematikan"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Dalam menghadapi Devil’s Snare, mengapa perjuangan fisik yang berlebihan justru dapat menjadi pilihan buruk?",
+                        options: [
+                            "Tanaman menjadi lebih lemah ketika korban bergerak",
+                            "Tanaman dapat merespons dengan semakin membelit korban",
+                            "Gerakan fisik menyebabkan tanaman menghasilkan racun udara",
+                            "Devil’s Snare hanya menyerang orang yang diam"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Kondisi lingkungan yang paling berkaitan dengan pertumbuhan Devil’s Snare adalah...",
+                        options: ["Terang dan kering", "Panas dan sangat kering", "Gelap dan lembap", "Bersalju dan berangin"],
+                        answer: 2
+                    },
+                    {
+                        text: "Manakah pasangan tanaman yang paling tepat berdasarkan fungsi atau karakteristik utamanya?",
+                        options: [
+                            "Mandrake → membantu pernapasan bawah air",
+                            "Gillyweed → menghasilkan cairan untuk perawatan kulit",
+                            "Bubotuber → menghasilkan cairan yang dapat dimanfaatkan setelah pengolahan",
+                            "Devil’s Snare → menghasilkan tangisan mematikan"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Seorang siswa memasuki ruangan gelap dan lembap. Ia merasa tanaman seperti tali mulai melilit tubuhnya. Ia mencoba menarik tanaman tersebut dengan kekuatan penuh, tetapi lilitannya semakin erat. Tanaman apa yang paling mungkin ia hadapi, dan apa alasan utamanya?",
+                        options: [
+                            "Mandrake, karena akarnya sensitif terhadap sentuhan",
+                            "Devil’s Snare, karena menyukai lingkungan gelap dan lembap serta dapat membelit korban",
+                            "Venomous Tentacula, karena sulurnya selalu tumbuh di tempat gelap",
+                            "Bubotuber, karena cairannya menyebabkan tanaman bergerak"
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Jika kelima tanaman tersebut dikelompokkan berdasarkan bahaya utama yang mereka berikan kepada manusia, pasangan manakah yang menunjukkan kategori paling berbeda?",
+                        options: [
+                            "Venomous Tentacula dan Devil’s Snare",
+                            "Mandrake dan Venomous Tentacula",
+                            "Gillyweed dan Bubotuber",
+                            "Mandrake dan Devil’s Snare"
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Seorang herbolog menemukan lima spesimen:\nSpesimen I memiliki akar yang menghasilkan suara berbahaya.\nSpesimen II memungkinkan manusia beradaptasi untuk bernapas di bawah air.\nSpesimen III menghasilkan cairan yang menyerupai nanah.\nSpesimen IV memiliki sulur berduri dan beracun.\nSpesimen V berupa tanaman merambat yang membelit dalam kondisi gelap dan lembap.\nUrutan tanaman yang benar adalah...",
+                        options: [
+                            "Mandrake – Gillyweed – Bubotuber – Venomous Tentacula – Devil’s Snare",
+                            "Gillyweed – Mandrake – Bubotuber – Devil’s Snare – Venomous Tentacula",
+                            "Mandrake – Bubotuber – Gillyweed – Venomous Tentacula – Devil’s Snare",
+                            "Devil’s Snare – Gillyweed – Bubotuber – Mandrake – Venomous Tentacula"
+                        ],
+                        answer: 0
+                    },
+                    {
+                        text: "Seorang siswa mengatakan: 'Kelima tanaman ini sama-sama berbahaya, tetapi tingkat bahayanya bergantung sepenuhnya pada apakah tanaman tersebut disentuh.' Pernyataan tersebut paling tepat dinilai sebagai...",
+                        options: [
+                            "Benar, karena semua tanaman magis hanya berbahaya melalui kontak fisik",
+                            "Benar, karena tanaman magis tidak memiliki efek dari jarak jauh",
+                            "Salah, karena masing-masing tanaman memiliki mekanisme bahaya dan karakteristik yang berbeda",
+                            "Salah, karena kelima tanaman sebenarnya tidak berbahaya bagi manusia"
+                        ],
+                        answer: 2
+                    }
+                ]
+            },
+            {
+                id: 'g2-history',
+                grade: 2,
+                subject: 'History of Magic',
+                professor: 'Cluvssieran Althea D\'Slyvan',
+                questions: [
+                    {
+                        text: "Karakteristik Kelas: Mengapa mata pelajaran Sejarah Sihir di Hogwarts sering dianggap sebagai kelas yang paling membosankan oleh mayoritas siswa?",
+                        options: [
+                            "Karena siswa harus melakukan banyak praktik sihir tingkat tinggi.",
+                            "Karena materinya berfokus pada teori, hafalan tanggal, dan dokumen kuno, serta disampaikan dengan gaya mengajar yang monoton.",
+                            "Karena guru Sejarah Sihir sering memberikan tugas kelompok yang sulit.",
+                            "Karena pelajaran hanya berlangsung pada malam hari."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Keunikan Logam Goblin: Mengapa senjata atau logam yang ditempa oleh kaum Goblin dianggap sangat istimewa dalam dunia sihir?",
+                        options: [
+                            "Karena logam Goblin hanya dapat digunakan oleh penyihir keturunan murni.",
+                            "Karena logam Goblin tidak dapat dihancurkan oleh mantra apa pun.",
+                            "Karena logam tersebut mampu menyerap zat yang dapat menguatkannya, seperti Pedang Godric Gryffindor yang menyerap bisa Basilisk.",
+                            "Karena logam Goblin dapat berubah menjadi emas ketika terkena sihir."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Konflik Sosial: Mengapa kaum Goblin melakukan serangkaian pemberontakan besar terhadap penyihir manusia pada abad ke-17 dan ke-18?",
+                        options: [
+                            "Karena mereka ingin menguasai seluruh sekolah sihir.",
+                            "Karena mereka tidak diperbolehkan bekerja di Gringotts.",
+                            "Karena mereka merasa diperlakukan sebagai 'warga kelas dua' meskipun memiliki kecerdasan dan kemampuan tinggi dalam finansial serta penempaan.",
+                            "Karena mereka ingin menghapus seluruh penggunaan sihir manusia."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Hak Tongkat Sihir: Mengapa larangan penggunaan tongkat sihir oleh Kementerian Sihir memicu kemarahan besar dan pemberontakan dari kaum Goblin?",
+                        options: [
+                            "Karena tongkat sihir merupakan sumber utama kekayaan Goblin.",
+                            "Karena larangan tersebut dianggap sebagai diskriminasi dan pembatasan hak kaum Goblin untuk menggunakan kekuatan sihir mereka.",
+                            "Karena Goblin ingin menjual tongkat sihir kepada Muggle.",
+                            "Karena tongkat sihir hanya dapat dibuat oleh Goblin."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Dampak Akhir Pemberontakan: Bagaimana hasil akhir atau kesepakatan damai setelah meredanya Pemberontakan Goblin?",
+                        options: [
+                            "Goblin memperoleh hak menggunakan tongkat sihir secara bebas.",
+                            "Goblin diberikan otonomi untuk mengelola Gringotts, tetapi larangan penggunaan tongkat sihir tetap berlaku.",
+                            "Goblin diberikan hak untuk menguasai Kementerian Sihir.",
+                            "Semua hukum terhadap Goblin dihapuskan sepenuhnya."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Urg the Unclean: Siapakah Urg the Unclean dan apa perannya dalam sejarah pertikaian antara penyihir dan Goblin?",
+                        options: [
+                            "Seorang Menteri Sihir yang membuat hukum perlindungan Goblin.",
+                            "Seorang penyihir yang mendirikan Bank Gringotts.",
+                            "Salah satu pemimpin utama Goblin yang dikenal radikal dan agresif dalam memimpin perlawanan bersenjata.",
+                            "Seorang Muggle yang membantu Goblin mendapatkan tongkat sihir."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Definisi Statuta Kerahasiaan: Apa yang dimaksud dengan International Statute of Wizarding Secrecy 1692?",
+                        options: [
+                            "Hukum yang mengatur perdagangan antara penyihir dan Goblin.",
+                            "Hukum internasional yang mewajibkan komunitas penyihir menyembunyikan keberadaan sihir dari kaum Muggle.",
+                            "Peraturan yang memberikan hak tongkat sihir kepada semua makhluk ajaib.",
+                            "Hukum yang mengatur pendirian sekolah-sekolah sihir di seluruh dunia."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Faktor Salem Witch Trials: Mengapa peristiwa Salem Witch Trials menjadi salah satu pemicu penting dipercepatnya pengesahan Statuta Kerahasiaan Sihir?",
+                        options: [
+                            "Karena Salem merupakan tempat pertama berdirinya Hogwarts.",
+                            "Karena peristiwa tersebut menunjukkan bahwa ketakutan dan persekusi Muggle terhadap penyihir telah mencapai tingkat yang berbahaya.",
+                            "Karena para penyihir Salem meminta bantuan Kementerian Sihir untuk menyerang Muggle.",
+                            "Karena masyarakat Salem berhasil menemukan lokasi Kementerian Sihir."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Kegagalan Diplomasi: Mengapa upaya diplomasi antara komunitas penyihir dan pemimpin kerajaan Muggle seperti Raja William III dan Ratu Mary II sebelum tahun 1692 menemui kegagalan?",
+                        options: [
+                            "Karena para penyihir menolak bekerja sama dengan kerajaan Muggle.",
+                            "Karena pemimpin Muggle tidak memiliki pengetahuan tentang hukum internasional.",
+                            "Karena para pemimpin Muggle menolak memberikan perlindungan hukum kepada penyihir akibat ketakutan masyarakat terhadap sihir.",
+                            "Karena Kementerian Sihir melarang semua bentuk diplomasi."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Sistem Perlindungan Kerahasiaan: Manakah yang merupakan dua langkah konkret yang dilakukan Kementerian Sihir setelah tahun 1692 untuk menjaga dunia sihir tetap tersembunyi dari Muggle?",
+                        options: [
+                            "Membuka sekolah sihir untuk Muggle dan memberikan tongkat sihir kepada mereka.",
+                            "Menyembunyikan lokasi sekolah dan desa sihir serta membentuk Satuan Tugas Penghapus Memori (Obliviator).",
+                            "Menghapus semua desa sihir dan melarang penggunaan sihir secara keseluruhan.",
+                            "Mengizinkan anak-anak menggunakan sihir di tempat umum selama tidak tertangkap."
+                        ],
+                        answer: 1
+                    }
+                ]
+            },
+            {
+                id: 'g2-astronomy',
+                grade: 2,
+                subject: 'Astronomy',
+                professor: 'Lucius Lucifer Morningstar G\' Thomas',
+                questions: [
+                    {
+                        text: "Seorang astronom melihat siang dan malam berganti setiap hari. Fenomena ini terjadi kerana...",
+                        options: [
+                            "Revolusi Bumi.",
+                            "Rotasi Bumi pada paksinya.",
+                            "Bulan mengelilingi Bumi.",
+                            "Matahari bergerak mengelilingi Bumi."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Jika Bumi tidak berotasi tetapi masih berevolusi, fenomena yang tidak akan berlaku ialah...",
+                        options: [
+                            "Pergantian musim.",
+                            "Siang dan malam.",
+                            "Perubahan konstelasi mengikut musim.",
+                            "Peredaran Bumi mengelilingi Matahari."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Mengapa konstelasi Orion tidak dapat dilihat dengan jelas sepanjang tahun?",
+                        options: [
+                            "Orion sentiasa berubah bentuk.",
+                            "Revolusi Bumi menyebabkan langit malam berubah mengikut musim.",
+                            "Orion bergerak mengelilingi Bumi.",
+                            "Polaris menghalangnya."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Ursa Major dan Polaris mempunyai hubungan kerana...",
+                        options: [
+                            "Polaris berada dalam Orion.",
+                            "Ursa Major membantu menunjukkan arah Polaris.",
+                            "Polaris ialah planet.",
+                            "Kedua-duanya sentiasa berada di selatan."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Cassiopeia paling berguna apabila...",
+                        options: [
+                            "Matahari sedang terbit.",
+                            "Ursa Major sukar dilihat.",
+                            "Bulan Purnama berlaku.",
+                            "Gerhana Matahari berlaku."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Gerhana Matahari hanya berlaku semasa...",
+                        options: [
+                            "Bulan Baru.",
+                            "Bulan Purnama.",
+                            "Bulan Sabit.",
+                            "Perbani Akhir."
+                        ],
+                        answer: 0
+                    },
+                    {
+                        text: "Seorang murid melihat Bulan memasuki bayangan Bumi. Fenomena itu ialah...",
+                        options: [
+                            "Gerhana Matahari.",
+                            "Gerhana Bulan.",
+                            "Hujan Meteor.",
+                            "Fasa Bulan Baru."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Mengapa gerhana tidak berlaku setiap Bulan Baru?",
+                        options: [
+                            "Bulan tidak mengeluarkan cahaya.",
+                            "Orbit Bulan condong sekitar 5°.",
+                            "Matahari terlalu jauh.",
+                            "Bumi berhenti berputar."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Bahagian bayangan yang menghasilkan gerhana penuh dipanggil...",
+                        options: [
+                            "Penumbra.",
+                            "Umbra.",
+                            "Orbit.",
+                            "Korona."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Dalam gerhana Matahari cincin (annular), Matahari masih kelihatan kerana...",
+                        options: [
+                            "Bulan lebih besar daripada Matahari.",
+                            "Bulan kelihatan lebih kecil daripada Matahari.",
+                            "Bumi menghalang cahaya Matahari.",
+                            "Polaris memantulkan cahaya."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Mengapa gerhana Bulan boleh dilihat dari kawasan yang lebih luas berbanding gerhana Matahari?",
+                        options: [
+                            "Bayangan Bumi lebih besar daripada bayangan Bulan.",
+                            "Bulan lebih terang.",
+                            "Matahari lebih dekat dengan Bumi.",
+                            "Semua negara melihat gerhana serentak."
+                        ],
+                        answer: 0
+                    },
+                    {
+                        text: "Kemiringan paksi Bumi 23.5° paling berkaitan dengan...",
+                        options: [
+                            "Gerhana Bulan.",
+                            "Pergantian musim.",
+                            "Rotasi Bulan.",
+                            "Pembentukan konstelasi."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Seorang penyihir ingin menentukan arah utara tanpa kompas. Langkah pertama yang paling tepat ialah...",
+                        options: [
+                            "Mencari Orion.",
+                            "Mencari Ursa Major, kemudian mengikut bintang penunjuk ke Polaris.",
+                            "Mencari Bulan Purnama.",
+                            "Mencari Cassiopeia sahaja."
+                        ],
+                        answer: 1
+                    },
+                    {
+                        text: "Pernyataan manakah yang benar?",
+                        options: [
+                            "Rotasi menyebabkan musim.",
+                            "Revolusi menyebabkan siang dan malam.",
+                            "Rotasi menyebabkan siang dan malam, revolusi membantu perubahan musim.",
+                            "Rotasi dan revolusi mempunyai kesan yang sama."
+                        ],
+                        answer: 2
+                    },
+                    {
+                        text: "Mengapa Astronomy penting bagi seorang penyihir Hogwarts?",
+                        options: [
+                            "Membantu menentukan waktu pemerhatian, arah, dan fenomena langit.",
+                            "Menjadikan mantra lebih kuat setiap hari.",
+                            "Mengubah konstelasi di langit.",
+                            "Menentukan rumah Hogwarts."
+                        ],
+                        answer: 0
+                    }
+                ]
+            }
+        ];
+
+        let currentExam = null;
+        let isExamSubmitted = false;
+
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const navMenu = document.getElementById('nav-menu');
+        
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const examContainer = document.getElementById('exam-container');
+        const questionsContainer = document.getElementById('questions-container');
+        const examForm = document.getElementById('exam-form');
+        const scoreDisplay = document.getElementById('score-display');
+        const submitBtn = examForm.querySelector('button[type="submit"]');
+
+        function initNavigation() {
+            // Group exams by grade
+            const grades = {};
+            examDatabase.forEach(exam => {
+                if (!grades[exam.grade]) grades[exam.grade] = [];
+                grades[exam.grade].push(exam);
+            });
+
+            // Generate HTML for menu
+            let menuHTML = '';
+            
+            // Sort grades to ensure Grade 2 comes before Grade 3
+            Object.keys(grades).sort().forEach(gradeNum => {
+                menuHTML += `
+                    <div class="mb-6">
+                        <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3 ml-2">Grade ${gradeNum}</h3>
+                        <ul class="space-y-1">
+                `;
+                
+                grades[gradeNum].forEach(exam => {
+                    menuHTML += `
+                        <li>
+                            <button onclick="loadExam('${exam.id}')" class="w-full text-left px-4 py-3 rounded-lg text-gray-200 hover:bg-magic-700 hover:text-magic-gold transition-colors flex items-center gap-3">
+                                <svg class="w-4 h-4 text-magic-gold/70" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                                <span class="font-heading">${exam.subject}</span>
+                            </button>
+                        </li>
+                    `;
+                });
+                
+                menuHTML += `</ul></div>`;
+            });
+            
+            navMenu.innerHTML = menuHTML;
+        }
+
+        function toggleMenu() {
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                // Small delay to allow display:block to apply before changing opacity
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300); // match duration
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        function loadExam(examId) {
+            currentExam = examDatabase.find(e => e.id === examId);
+            if (!currentExam) return;
+
+            // Reset states
+            isExamSubmitted = false;
+            scoreDisplay.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+            examForm.reset();
+
+            // Update UI headers
+            document.getElementById('exam-grade-badge').innerText = `GRADE ${currentExam.grade}`;
+            document.getElementById('exam-subject-title').innerText = currentExam.subject;
+            document.getElementById('exam-professor-name').innerText = currentExam.professor;
+
+            // Generate Questions
+            let questionsHTML = '';
+            const labels = ['A', 'B', 'C', 'D'];
+
+            currentExam.questions.forEach((q, index) => {
+                questionsHTML += `
+                    <div class="bg-magic-800/60 p-6 rounded-xl border border-magic-gold/20 shadow-lg relative z-10" id="question-card-${index}">
+                        <div class="flex gap-4 mb-4">
+                            <span class="font-heading text-xl text-magic-gold font-bold">${index + 1}.</span>
+                            <h3 class="text-xl text-gray-100 leading-relaxed">${q.text.replace(/\n/g, '<br>')}</h3>
+                        </div>
+                        <div class="space-y-3 pl-8 sm:pl-10">
+                `;
+
+                q.options.forEach((opt, optIndex) => {
+                    questionsHTML += `
+                            <label class="block cursor-pointer relative group">
+                                <input type="radio" name="q_${index}" value="${optIndex}" class="peer sr-only radio-custom" required>
+                                <div class="flex items-start gap-4 p-4 rounded-lg border border-magic-700 hover:border-magic-gold/50 hover:bg-magic-700/50 transition-all">
+                                    <div class="indicator mt-1 w-5 h-5 rounded-full border-2 border-gray-500 flex-shrink-0 flex items-center justify-center transition-colors">
+                                        <!-- Custom radio dot -->
+                                        <div class="w-2.5 h-2.5 rounded-full bg-transparent"></div>
+                                    </div>
+                                    <div class="flex gap-2 text-gray-300 peer-checked:text-white">
+                                        <span class="font-bold font-heading text-magic-gold/70">${labels[optIndex]}.</span>
+                                        <span>${opt}</span>
+                                    </div>
+                                </div>
+                            </label>
+                    `;
+                });
+
+                questionsHTML += `
+                        </div>
+                    </div>
+                `;
+            });
+
+            questionsContainer.innerHTML = questionsHTML;
+
+            // Switch views
+            welcomeScreen.classList.add('hidden');
+            examContainer.classList.remove('hidden');
+            
+            // Close menu on mobile after selection
+            if(window.innerWidth < 1024) toggleMenu();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        examForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (isExamSubmitted) return;
+            
+            let score = 0;
+            const totalQuestions = currentExam.questions.length;
+            const formData = new FormData(examForm);
+
+            // Check answers
+            currentExam.questions.forEach((q, index) => {
+                const selectedValue = formData.get(`q_${index}`);
+                const card = document.getElementById(`question-card-${index}`);
+                const labels = card.querySelectorAll('label > div'); // The visual container
+                
+                // Disable all inputs
+                card.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+
+                if (selectedValue !== null) {
+                    const selectedInt = parseInt(selectedValue);
+                    
+                    if (selectedInt === q.answer) {
+                        score++;
+                        // Highlight correct selection visually
+                        labels[selectedInt].classList.add('correct-answer');
+                    } else {
+                        // Highlight wrong selection
+                        labels[selectedInt].classList.add('wrong-answer');
+                        // Show what the right answer was
+                        labels[q.answer].classList.add('correct-answer');
+                    }
+                } else {
+                     // If somehow not selected (though required attribute should prevent this), show correct
+                     labels[q.answer].classList.add('correct-answer');
+                }
+            });
+
+            // Calculate final grade
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let gradeLetter = 'T'; // Troll (Fail)
+            if (percentage >= 90) gradeLetter = 'O'; // Outstanding
+            else if (percentage >= 70) gradeLetter = 'E'; // Exceeds Expectations
+            else if (percentage >= 50) gradeLetter = 'A'; // Acceptable
+            else if (percentage >= 30) gradeLetter = 'P'; // Poor
+            else if (percentage >= 15) gradeLetter = 'D'; // Dreadful
+
+            // Display results
+            submitBtn.classList.add('hidden');
+            scoreDisplay.classList.remove('hidden');
+            scoreDisplay.innerHTML = `
+                Nilai Anda: <span class="text-magic-gold text-4xl ml-2">${percentage} / 100</span>
+                <div class="text-lg text-gray-400 mt-2 font-body">Peringkat N.E.W.T: <strong class="text-white">${gradeLetter}</strong></div>
+            `;
+            
+            isExamSubmitted = true;
+            
+            // Scroll to bottom to see score
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initNavigation();
+        });
+    </script>
 </body>
 </html>
-
